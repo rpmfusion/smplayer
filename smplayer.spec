@@ -9,7 +9,7 @@
 
 Name:           smplayer
 Version:        0.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -95,6 +95,9 @@ update-desktop-database &> /dev/null || :
 %{_mandir}/man1/smplayer.1.gz
 
 %changelog
+* Tue Jul 22 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.1-3
+- import into rpmfusion
+
 * Tue Jul 08 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.1-2
 - fix packaging of FAQs
 
