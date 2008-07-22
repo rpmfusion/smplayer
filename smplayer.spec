@@ -1,0 +1,142 @@
+# define correct path to used binaries
+# works on: fedora >= 7, centos >= 5
+%if 0%{?rhel} > 1
+  %define _qt4_qmake %{_libdir}/qt4/bin/qmake
+  %define _qt4_lrelease %{_libdir}/qt4/bin/lrelease
+%else
+  %define _qt4_lrelease %{_bindir}/lrelease-qt4
+%endif
+
+Name:           smplayer
+Version:        0.6.1
+Release:        2%{?dist}
+Summary:        A graphical frontend for mplayer
+
+Group:          Applications/Multimedia
+License:        GPLv2+
+URL:            http://smplayer.sourceforge.net/linux/
+Source0:        http://downloads.sourceforge.net/smplayer/%{name}-%{version}.tar.bz2
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  desktop-file-utils
+BuildRequires:  qt4-devel
+# smplayer without mplayer is quite useless
+Requires:       mplayer
+
+%description
+smplayer intends to be a complete front-end for Mplayer, from basic features
+like playing videos, DVDs, and VCDs to more advanced features like support
+for Mplayer filters and more. One of the main features is the ability to
+remember the state of a played file, so when you play it later it will resume
+at the same point and with the same settings. smplayer is developed with
+the Qt toolkit, so it's multi-platform.
+
+%prep
+%setup -qn %{name}-%{version}
+
+# correction for wrong-file-end-of-line-encoding
+%{__sed} -i 's/\r//' *.txt
+# fix files which are not UTF-8 
+iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog 
+mv Changelog.utf8 Changelog
+
+
+# use lrelease from qt4-devel
+sed -i 's|LRELEASE=lrelease|LRELEASE=%{_qt4_lrelease}|' Makefile
+
+# fix path of docs
+sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/share/doc/smplayer-%{version}|' Makefile
+
+# use %{?_smp_mflags}
+sed -i '/cd src && $(QMAKE) $(QMAKE_OPTS) && $(DEFS) make/s!$! %{?_smp_mflags}!' Makefile
+
+%build
+make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix}
+
+%install
+rm -rf %{buildroot}
+make PREFIX=%{_prefix} DESTDIR=%{buildroot}/ install
+
+desktop-file-install --delete-original                   \
+        --vendor "rpmfusion"                             \
+        --dir %{buildroot}%{_datadir}/applications/      \
+        %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+# drop smplayer_enqueue.desktop until it's working
+# https://sourceforge.net/tracker/index.php?func=detail&aid=2010348&group_id=185512&atid=913573
+rm -f %{buildroot}%{_datadir}/applications/smplayer_enqueue.desktop
+
+%clean
+rm -rf %{buildroot}
+
+%post
+touch --no-create %{_datadir}/icons/hicolor
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+fi
+update-desktop-database &> /dev/null || :
+
+%postun
+touch --no-create %{_datadir}/icons/hicolor
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+fi
+update-desktop-database &> /dev/null || :
+
+%files
+%defattr(-,root,root,-)
+#%doc Changelog Copying.txt Readme.txt Release_notes.txt
+%{_docdir}/%{name}-%{version}/
+%{_bindir}/smplayer
+%{_datadir}/applications/rpmfusion-smplayer.desktop
+#%{_datadir}/apps/konqueror/servicemenus/smplayer_enqueue.desktop
+%{_datadir}/icons/hicolor/*/apps/smplayer.png
+%{_datadir}/smplayer/
+%{_mandir}/man1/smplayer.1.gz
+
+%changelog
+* Tue Jul 08 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.1-2
+- fix packaging of FAQs
+
+* Tue Jun 17 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.1-1
+- update to latest upstream version
+
+* Sat Feb 24 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.0-0.3.rc2
+- add %%{?_smp_mflags} in Makefile to really use it
+- finally fix usage of macros
+- mode 0644 for desktop-file isn't needed anymore
+
+* Sat Feb 23 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.0-0.2.rc2
+- Update %%post and %%postun scriplets
+- use %%{?_smp_mflags} in make
+- change vendor to rpmfusion in desktop-file-install
+- some minor spec cleanups
+
+* Thu Feb 14 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.0-0.1.rc2
+- new upstream version: 0.6.0rc2
+
+* Tue Feb 12 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.0-0.1.rc1
+- new upstream version: 0.6.0rc1
+- added docs: Changelog Copying.txt Readme.txt Release_notes.txt
+- fix path of %%docdir in Makefile
+
+* Tue Dec 18 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.62-1
+- new version: 0.5.62
+- specify license as GPLv2+
+
+* Thu Sep 20 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.60-1
+- Update to development version of qt4
+
+* Thu Sep 20 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.21-1
+- new upstream version: 0.5.21
+- don't add category "Multimedia" to desktop-file
+- correct url of Source0
+
+* Mon Jul 29 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.20-1
+- new upstream version: 0.5.20
+
+* Mon Jun 18 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.14-1
+- new upstream version: 0.5.14
+
+* Thu Jun 14 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.7-1
+- Initial Release
