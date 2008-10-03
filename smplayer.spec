@@ -8,7 +8,7 @@
 %endif
 
 Name:           smplayer
-Version:        0.6.2
+Version:        0.6.3
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -112,15 +112,18 @@ update-desktop-database &> /dev/null || :
 %{_mandir}/man1/smplayer.1.gz
 
 %if 0%{?fedora} >= 9
-  %{_datadir}/kde4/services/ServiceMenus/
+  %dir %{_datadir}/kde4/services/ServiceMenus/
   %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 %else
-  %{_datadir}/apps/konqueror/
-  %{_datadir}/apps/konqueror/servicemenus/
+  %dir %{_datadir}/apps/konqueror/
+  %dir %{_datadir}/apps/konqueror/servicemenus/
   %{_datadir}/apps/konqueror/servicemenus/smplayer_enqueue.desktop
 %endif
 
 %changelog
+* Mon Sep 29 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.3-1
+- new upstream version: 0.6.3
+
 * Fri Aug 15 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.2-1
 - new upstream version: 0.6.2
 - add servicemenus depending on the KDE version
