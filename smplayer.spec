@@ -8,14 +8,20 @@
 %endif
 
 Name:           smplayer
-Version:        0.6.1
-Release:        4%{?dist}
+Version:        0.6.3
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://smplayer.sourceforge.net/linux/
-Source0:        http://downloads.sourceforge.net/smplayer/%{name}-%{version}.tar.bz2
+Source0:        http://download.berlios.de/smplayer/smplayer-%{version}.tar.bz2
+# Add a servicemenu to enqeue files in smplayer's playlist. 
+# The first one is for KDE4, the second one for KDE3.
+# see also: 
+# https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
+Source1:        smplayer_enqueue_kde4.desktop
+Source2:        smplayer_enqueue_kde3.desktop
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -40,7 +46,6 @@ the Qt toolkit, so it's multi-platform.
 iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog 
 mv Changelog.utf8 Changelog
 
-
 # use lrelease from qt4-devel
 sed -i 's|LRELEASE=lrelease|LRELEASE=%{_qt4_lrelease}|' Makefile
 
@@ -49,6 +54,9 @@ sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/shar
 
 # use %{?_smp_mflags}
 sed -i '/cd src && $(QMAKE) $(QMAKE_OPTS) && $(DEFS) make/s!$! %{?_smp_mflags}!' Makefile
+
+# don't show smplayer_enqueue.desktop in KDE and use servicemenus instead
+echo "NotShowIn=KDE;" >> smplayer_enqueue.desktop
 
 %build
 make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix}
@@ -62,9 +70,20 @@ desktop-file-install --delete-original                   \
         --dir %{buildroot}%{_datadir}/applications/      \
         %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-# drop smplayer_enqueue.desktop until it's working
-# https://sourceforge.net/tracker/index.php?func=detail&aid=2010348&group_id=185512&atid=913573
-rm -f %{buildroot}%{_datadir}/applications/smplayer_enqueue.desktop
+
+desktop-file-install --delete-original                   \
+        --vendor "rpmfusion"                             \
+        --dir %{buildroot}%{_datadir}/applications/      \
+        %{buildroot}%{_datadir}/applications/%{name}_enqueue.desktop
+
+# Add servicemenus dependend on the version of KDE:
+# https://sourceforge.net/tracker/index.php?func=detail&aid=2052905&group_id=185512&atid=913576
+%if 0%{?fedora} >= 9
+  install -Dpm 0644 %{SOURCE1} %{buildroot}%{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
+%else
+  install -Dpm 0644 %{SOURCE2} %{buildroot}%{_datadir}/apps/konqueror/servicemenus/smplayer_enqueue.desktop
+%endif
+
 
 %clean
 rm -rf %{buildroot}
@@ -85,16 +104,30 @@ update-desktop-database &> /dev/null || :
 
 %files
 %defattr(-,root,root,-)
-#%doc Changelog Copying.txt Readme.txt Release_notes.txt
 %{_docdir}/%{name}-%{version}/
 %{_bindir}/smplayer
-%{_datadir}/applications/rpmfusion-smplayer.desktop
-#%{_datadir}/apps/konqueror/servicemenus/smplayer_enqueue.desktop
+%{_datadir}/applications/rpmfusion-smplayer*.desktop
 %{_datadir}/icons/hicolor/*/apps/smplayer.png
 %{_datadir}/smplayer/
 %{_mandir}/man1/smplayer.1.gz
 
+%if 0%{?fedora} >= 9
+  %dir %{_datadir}/kde4/services/ServiceMenus/
+  %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
+%else
+  %dir %{_datadir}/apps/konqueror/
+  %dir %{_datadir}/apps/konqueror/servicemenus/
+  %{_datadir}/apps/konqueror/servicemenus/smplayer_enqueue.desktop
+%endif
+
 %changelog
+* Mon Sep 29 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.3-1
+- new upstream version: 0.6.3
+
+* Fri Aug 15 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.2-1
+- new upstream version: 0.6.2
+- add servicemenus depending on the KDE version
+
 * Wed Jul 30 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 0.6.1-4
 - rebuild for buildsys cflags issue
 
