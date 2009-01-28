@@ -8,14 +8,14 @@
 %endif
 
 Name:           smplayer
-Version:        0.6.4
+Version:        0.6.6
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://smplayer.sourceforge.net/linux/
-Source0:        http://download.berlios.de/smplayer/smplayer-%{version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/sourceforge/smplayer/smplayer-%{version}.tar.bz2
 # Add a servicemenu to enqeue files in smplayer's playlist. 
 # The first one is for KDE4, the second one for KDE3.
 # see also: 
@@ -121,6 +121,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sat Jan 10 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.6-1
+- new upstream version: 0.6.6
+
+* Thu Nov 13 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.5.1-1
+- new upstream version: 0.6.5.1
+
 * Wed Oct 29 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.4-1
 - new upstream version: 0.6.4
 
