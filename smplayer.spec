@@ -9,7 +9,7 @@
 
 Name:           smplayer
 Version:        0.6.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -121,6 +121,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.6.6-2
+- rebuild for new F11 features
+
 * Sat Jan 10 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.6-1
 - new upstream version: 0.6.6
 
