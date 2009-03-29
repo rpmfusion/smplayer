@@ -8,8 +8,8 @@
 %endif
 
 Name:           smplayer
-Version:        0.6.6
-Release:        2%{?dist}
+Version:        0.6.7
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -22,6 +22,7 @@ Source0:        http://downloads.sourceforge.net/sourceforge/smplayer/smplayer-%
 # https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
 Source1:        smplayer_enqueue_kde4.desktop
 Source2:        smplayer_enqueue_kde3.desktop
+Patch0:         smplayer-0.6.7-fix-translations.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -39,6 +40,7 @@ the Qt toolkit, so it's multi-platform.
 
 %prep
 %setup -qn %{name}-%{version}
+%patch0 -p1 -b .fix-translations
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -63,7 +65,7 @@ make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix}
 
 %install
 rm -rf %{buildroot}
-make PREFIX=%{_prefix} DESTDIR=%{buildroot}/ install
+make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} DESTDIR=%{buildroot}/ install
 
 desktop-file-install --delete-original                   \
         --vendor "rpmfusion"                             \
@@ -121,6 +123,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sun Mar 29 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.7-1
+- new upstream version: 0.6.7
+
 * Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.6.6-2
 - rebuild for new F11 features
 
