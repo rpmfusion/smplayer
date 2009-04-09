@@ -1,0 +1,14 @@
+diff -up ./src/translations/smplayer_gl.ts.orig ./src/translations/smplayer_gl.ts
+--- ./src/translations/smplayer_gl.ts.orig	2009-03-26 08:52:13.000000000 +0100
++++ ./src/translations/smplayer_gl.ts	2009-03-26 08:53:11.000000000 +0100
+@@ -2417,10 +2417,6 @@ Por favor verifica os permisos dese cart
+         <translation type="obsolete">Serbocroata</translation>
+     </message>
+     <message>
+-        <source>Volap&#xfc;k</source>
+-        <translation type="obsolete">Volapük</translation>
+-    </message>
+-    <message>
+         <source>Avestan</source>
+         <translation type="unfinished"></translation>
+     </message>
