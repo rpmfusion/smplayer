@@ -8,7 +8,7 @@
 %endif
 
 Name:           smplayer
-Version:        0.6.7
+Version:        0.6.8
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -22,7 +22,6 @@ Source0:        http://downloads.sourceforge.net/sourceforge/smplayer/smplayer-%
 # https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
 Source1:        smplayer_enqueue_kde4.desktop
 Source2:        smplayer_enqueue_kde3.desktop
-Patch0:         smplayer-0.6.7-fix-translations.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -40,7 +39,6 @@ the Qt toolkit, so it's multi-platform.
 
 %prep
 %setup -qn %{name}-%{version}
-%patch0 -p1 -b .fix-translations
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -123,6 +121,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sun Jul 28 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.8-1
+- new upstream version: 0.6.8
+
 * Sun Mar 29 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.7-1
 - new upstream version: 0.6.7
 
