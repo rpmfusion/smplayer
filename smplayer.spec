@@ -8,7 +8,7 @@
 %endif
 
 Name:           smplayer
-Version:        0.6.8
+Version:        0.6.9
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -121,6 +121,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sat Apr 24 2010 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.9-1
+- new upstream version: 0.6.9
+
 * Sun Jul 28 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.8-1
 - new upstream version: 0.6.8
 
