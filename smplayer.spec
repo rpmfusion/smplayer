@@ -9,7 +9,7 @@
 
 Name:           smplayer
 Version:        0.6.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -22,6 +22,9 @@ Source0:        http://downloads.sourceforge.net/sourceforge/smplayer/smplayer-%
 # https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
 Source1:        smplayer_enqueue_kde4.desktop
 Source2:        smplayer_enqueue_kde3.desktop
+# Fix regression in Thunar (TODO: re-check in upcoming versions!)
+# https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
+Patch0:         smplayer-0.6.9-desktop-files.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  desktop-file-utils
@@ -39,6 +42,7 @@ the Qt toolkit, so it's multi-platform.
 
 %prep
 %setup -qn %{name}-%{version}
+%patch0 -p0 -b .desktop-files
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -121,6 +125,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 24 2010 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.9-2
+- #1217: fix regression in Thunar
+
 * Sat Apr 24 2010 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.9-1
 - new upstream version: 0.6.9
 
