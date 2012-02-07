@@ -1,6 +1,6 @@
 diff -up ./smplayer.desktop.orig ./smplayer.desktop
---- ./smplayer.desktop.orig	2010-05-24 17:12:08.192632489 +0200
-+++ ./smplayer.desktop	2010-05-24 17:12:16.858636064 +0200
+--- ./smplayer.desktop.desktop-files	2012-01-27 00:55:34.000000000 +0000
++++ ./smplayer.desktop	2012-01-31 04:49:57.409390605 +0000
 @@ -11,7 +11,7 @@ Comment[pl]=Świetna nakładka na Mplaye
  Comment[pt]=Uma interface gráfica para o MPlayer
  Comment[ru]=Мощный интерфейс к MPlayer
