@@ -8,8 +8,8 @@
 %endif
 
 Name:           smplayer
-Version:        0.6.9
-Release:        2%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -125,6 +125,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 7 2012 Sérgio Basto <sergio@serjux.com> - 0.7.0-1
+- new upstream version: 0.7.0
+
 * Mon May 24 2010 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.9-2
 - #1217: fix regression in Thunar
 
