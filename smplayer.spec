@@ -9,7 +9,7 @@
 
 Name:           smplayer
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -125,6 +125,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Mar 02 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.7.0-2
+- Rebuilt for c++ ABI breakage
+
 * Tue Feb 7 2012 Sérgio Basto <sergio@serjux.com> - 0.7.0-1
 - new upstream version: 0.7.0
 
