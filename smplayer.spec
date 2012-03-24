@@ -8,8 +8,8 @@
 %endif
 
 Name:           smplayer
-Version:        0.7.0
-Release:        3%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -44,8 +44,11 @@ the Qt toolkit, so it's multi-platform.
 
 %prep
 %setup -qn %{name}-%{version}
+#remove some bundle sources 
+rm -rf zlib-1.2.6
+rm -rf src/findsubtitles/quazip
 %patch0 -p0 -b .desktop-files
-%patch1 -p1
+%patch1 -p1 -b .quazip
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -128,6 +131,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sat Mar 24 2012 Sérgio Basto <sergio@serjux.com> - 0.7.1-1
+- New upstream version: 0.7.1, changelog says "This version includes some bug fixes, 
+  some of them important. It's highly recommended to update." 
+- Remove some bundle sources.
+- Small fixes in patches to fit on 0.7.1.
+
 * Sat Mar 24 2012 Sérgio Basto <sergio@serjux.com> - 0.7.0-3
 - Add a patch to remove bundled quazip shlibs and Requires kde-filesystem, bug rfbz #1164
 - Removed tag BuildRoot.

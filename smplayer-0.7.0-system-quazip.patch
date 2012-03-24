@@ -34,9 +34,9 @@ diff -urP smplayer-0.6.9.org/src/findsubtitles/findsubtitles.pro smplayer-0.6.9/
  	LIBS += -lz
  	
  	win32 {
---- smplayer-0.7.0/src/smplayer.pro.orig	2012-01-22 09:45:20.000000000 +0000
-+++ smplayer-0.7.0/src/smplayer.pro	2012-03-24 00:55:09.670097366 +0000
-@@ -256,32 +256,18 @@ TRANSLATIONS = translations/smplayer_es.
+--- smplayer-0.7.1/src/smplayer.pro.orig	2012-02-09 11:07:02.000000000 +0000
++++ smplayer-0.7.1/src/smplayer.pro	2012-03-24 01:57:08.950048887 +0000
+@@ -256,31 +256,17 @@ TRANSLATIONS = translations/smplayer_es.
                 translations/smplayer_da.ts translations/smplayer_hr.ts
  
  contains( DEFINES, DOWNLOAD_SUBS ) {
@@ -68,9 +68,7 @@ diff -urP smplayer-0.6.9.org/src/findsubtitles/findsubtitles.pro smplayer-0.6.9/
 -	           zip.c
 -
 -	LIBS += -lz
--	
-+	LIBS += -lz -lquazip 
-+ 
++	LIBS += -lz -lquazip
+ 	
  	win32 {
- 		INCLUDEPATH += c:\\development\\zlib-1.2.3
- 		LIBS += -Lc:\\development\\zlib-1.2.3
+ 		INCLUDEPATH += ..\\zlib-1.2.6
