@@ -9,7 +9,7 @@
 
 Name:           smplayer
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -25,12 +25,14 @@ Source2:        smplayer_enqueue_kde3.desktop
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.6.9-desktop-files.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Patch1:         smplayer-0.7.0-system-quazip.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
+BuildRequires:  quazip-devel
 # smplayer without mplayer is quite useless
 Requires:       mplayer
+Requires:       kde-filesystem
 
 %description
 smplayer intends to be a complete front-end for Mplayer, from basic features
@@ -43,6 +45,7 @@ the Qt toolkit, so it's multi-platform.
 %prep
 %setup -qn %{name}-%{version}
 %patch0 -p0 -b .desktop-files
+%patch1 -p1
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -125,6 +128,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sat Mar 24 2012 Sérgio Basto <sergio@serjux.com> - 0.7.0-3
+- Add a patch to remove bundled quazip shlibs and Requires kde-filesystem, bug rfbz #1164
+- Removed tag BuildRoot.
+
 * Fri Mar 02 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.7.0-2
 - Rebuilt for c++ ABI breakage
 
