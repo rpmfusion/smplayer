@@ -15,7 +15,7 @@ diff -up ./smplayer_enqueue.desktop.orig ./smplayer_enqueue.desktop
 +++ ./smplayer_enqueue.desktop	2010-05-24 17:12:31.152634138 +0200
 @@ -1,6 +1,6 @@
  [Desktop Entry]
- Categories=Qt;AudioVideo;Player;Video;
+ Categories=Qt;KDE;AudioVideo;Player;Video;
 -Exec=smplayer -add-to-playlist %U
 +Exec=smplayer -add-to-playlist %F
  Icon=smplayer
