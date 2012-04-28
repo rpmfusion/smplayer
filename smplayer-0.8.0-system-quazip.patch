@@ -1,7 +1,6 @@
-diff -urP smplayer-0.6.9.org/src/findsubtitles/findsubtitles.pro smplayer-0.6.9/src/findsubtitles/findsubtitles.pro
---- smplayer-0.6.9.org/src/findsubtitles/findsubtitles.pro	2009-01-01 15:34:51.000000000 -0700
-+++ smplayer-0.6.9/src/findsubtitles/findsubtitles.pro	2010-04-26 03:51:13.821648677 -0600
-@@ -28,30 +28,14 @@
+--- smplayer-0.8.0/src/findsubtitles/findsubtitles.pro	2012-03-31 15:46:16.000000000 +0300
++++ smplayer-0.8.0/src/findsubtitles/findsubtitles.pro	2012-04-27 21:58:55.535383047 +0300
+@@ -34,30 +34,14 @@
  DEFINES += NO_SMPLAYER_SUPPORT DOWNLOAD_SUBS
  
  contains( DEFINES, DOWNLOAD_SUBS ) {
@@ -34,19 +33,19 @@ diff -urP smplayer-0.6.9.org/src/findsubtitles/findsubtitles.pro smplayer-0.6.9/
  	LIBS += -lz
  	
  	win32 {
---- smplayer-0.7.1/src/smplayer.pro.orig	2012-02-09 11:07:02.000000000 +0000
-+++ smplayer-0.7.1/src/smplayer.pro	2012-03-24 01:57:08.950048887 +0000
-@@ -256,31 +256,17 @@ TRANSLATIONS = translations/smplayer_es.
-                translations/smplayer_da.ts translations/smplayer_hr.ts
+--- smplayer-0.8.0/src/smplayer.pro	2012-04-02 12:09:38.000000000 +0300
++++ smplayer-0.8.0/src/smplayer.pro	2012-04-27 22:03:15.636757443 +0300
+@@ -258,31 +258,17 @@
  
+ # Download subtitles
  contains( DEFINES, DOWNLOAD_SUBS ) {
 -	INCLUDEPATH += findsubtitles/filedownloader findsubtitles/quazip
 -	DEPENDPATH += findsubtitles/filedownloader findsubtitles/quazip
 +	INCLUDEPATH += findsubtitles/filedownloader
 +	DEPENDPATH += findsubtitles/filedownloader
  
- 	HEADERS += filedownloader.h subchooserdialog.h
- 	SOURCES += filedownloader.cpp subchooserdialog.cpp
+ 	HEADERS += filedownloader.h subchooserdialog.h fixsubs.h
+ 	SOURCES += filedownloader.cpp subchooserdialog.cpp fixsubs.cpp
  
  	FORMS += subchooserdialog.ui
  
