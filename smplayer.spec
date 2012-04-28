@@ -1,17 +1,8 @@
-# define correct path to used binaries
-# works on: fedora >= 7, centos >= 5
-%if 0%{?rhel} > 1
-  %define _qt4_qmake %{_libdir}/qt4/bin/qmake
-  %define _qt4_lrelease %{_libdir}/qt4/bin/lrelease
-%else
-  %define _qt4_lrelease %{_bindir}/lrelease-qt4
-%endif
-
 %define smtube_ver   1.1
 
 Name:           smplayer
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -19,11 +10,9 @@ License:        GPLv2+
 URL:            http://smplayer.sourceforge.net/linux/
 Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
 # Add a servicemenu to enqeue files in smplayer's playlist. 
-# The first one is for KDE4, the second one for KDE3.
 # see also: 
 # https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
 Source1:        smplayer_enqueue_kde4.desktop
-Source2:        smplayer_enqueue_kde3.desktop
 Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
@@ -53,6 +42,8 @@ the Qt toolkit, so it's multi-platform.
 #remove some bundle sources 
 rm -rf zlib-1.2.6
 rm -rf src/findsubtitles/quazip
+rm -rf src/qtsingleapplication/
+
 %patch0 -p0 -b .desktop-files
 %patch1 -p1 -b .quazip
 %patch2 -p1 -b .qtsingleapplication
@@ -64,7 +55,7 @@ iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog
 mv Changelog.utf8 Changelog
 
 # use lrelease from qt4-devel
-sed -i 's|LRELEASE=lrelease|LRELEASE=%{_qt4_lrelease}|' Makefile
+sed -i 's|LRELEASE=lrelease|LRELEASE=%{_bindir}/lrelease-qt4|' Makefile
 
 # fix path of docs
 sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/share/doc/smplayer-%{version}|' Makefile
@@ -79,9 +70,9 @@ echo "NotShowIn=KDE;" >> smplayer_enqueue.desktop
 make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix}
 
 pushd smtube-%{smtube_ver}
-sed -i 's|lrelease|%{_qt4_lrelease}|' Makefile
+sed -i 's|lrelease|%{_bindir}/lrelease-qt4|' Makefile
 sed -i 's|qmake|%{_qt4_qmake}|' Makefile
-sed -i 's|/usr/local|%{buildroot}%{_prefix}|' Makefile
+sed -i 's|/usr/local|%{_prefix}|' Makefile
 sed -i 's|doc/smtube|doc/%{name}-%{version}/smtube|' Makefile
 sed -i 's|smtube/translations|smplayer/translations|' Makefile
 make PREFIX=%{_prefix}
@@ -91,7 +82,7 @@ popd
 %install
 make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} DESTDIR=%{buildroot}/ install
 pushd smtube-%{smtube_ver}
-make install
+make install DESTDIR=%{buildroot}
 popd
 
 desktop-file-install --delete-original                   \
@@ -109,11 +100,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/smtube.desktop
 
 # Add servicemenus dependend on the version of KDE:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2052905&group_id=185512&atid=913576
-%if 0%{?fedora} >= 9
-  install -Dpm 0644 %{SOURCE1} %{buildroot}%{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
-%else
-  install -Dpm 0644 %{SOURCE2} %{buildroot}%{_datadir}/apps/konqueror/servicemenus/smplayer_enqueue.desktop
-%endif
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %post
 touch --no-create %{_datadir}/icons/hicolor
@@ -139,17 +126,14 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/icons/hicolor/*/apps/smtube.png
 %{_datadir}/smplayer/
 %{_mandir}/man1/smplayer.1.gz
-
-%if 0%{?fedora} >= 9
-  %dir %{_datadir}/kde4/services/ServiceMenus/
-  %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
-%else
-  %dir %{_datadir}/apps/konqueror/
-  %dir %{_datadir}/apps/konqueror/servicemenus/
-  %{_datadir}/apps/konqueror/servicemenus/smplayer_enqueue.desktop
-%endif
+%dir %{_datadir}/kde4/services/ServiceMenus/
+%{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Sat Apr 28 2012 Sérgio Basto <sergio@serjux.com> - 0.8.0-2
+- fix smtube translations.
+- drop support for Fedora < 9 and EPEL 5, since we need kde4.
+
 * Sat Apr 28 2012 Sérgio Basto <sergio@serjux.com> - 0.8.0-1 
 - New release
 - add smtube support
