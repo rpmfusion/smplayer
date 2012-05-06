@@ -1,4 +1,4 @@
-%define smtube_ver   1.1
+%global smtube_ver 1.1
 
 Name:           smplayer
 Version:        0.8.0
