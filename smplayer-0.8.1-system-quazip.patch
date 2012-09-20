@@ -1,5 +1,5 @@
---- smplayer-0.8.0/src/findsubtitles/findsubtitles.pro	2012-03-31 15:46:16.000000000 +0300
-+++ smplayer-0.8.0/src/findsubtitles/findsubtitles.pro	2012-04-27 21:58:55.535383047 +0300
+--- smplayer-0.8.1/src/findsubtitles/findsubtitles.pro	2012-03-31 15:46:16.000000000 +0300
++++ smplayer-0.8.1/src/findsubtitles/findsubtitles.pro	2012-09-20 13:06:27.086599698 +0300
 @@ -34,30 +34,14 @@
  DEFINES += NO_SMPLAYER_SUPPORT DOWNLOAD_SUBS
  
@@ -33,8 +33,8 @@
  	LIBS += -lz
  	
  	win32 {
---- smplayer-0.8.0/src/smplayer.pro	2012-04-02 12:09:38.000000000 +0300
-+++ smplayer-0.8.0/src/smplayer.pro	2012-04-27 22:03:15.636757443 +0300
+--- smplayer-0.8.1/src/smplayer.pro	2012-06-01 18:37:36.000000000 +0300
++++ smplayer-0.8.1/src/smplayer.pro	2012-09-20 13:06:27.087599689 +0300
 @@ -258,31 +258,17 @@
  
  # Download subtitles
@@ -70,4 +70,4 @@
 +	LIBS += -lz -lquazip
  	
  	win32 {
- 		INCLUDEPATH += ..\\zlib-1.2.6
+ 		INCLUDEPATH += ..\\zlib
