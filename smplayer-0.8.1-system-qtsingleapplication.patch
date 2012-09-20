@@ -1,5 +1,5 @@
---- smplayer-0.8.0/smtube-1.1/src/smtube.pro	2012-03-27 00:46:29.000000000 +0300
-+++ smplayer-0.8.0/smtube-1.1/src/smtube.pro	2012-04-06 04:46:13.911416527 +0300
+--- smplayer-0.8.1/smtube-1.2.1/src/smtube.pro	2012-05-09 01:12:42.000000000 +0300
++++ smplayer-0.8.1/smtube-1.2.1/src/smtube.pro	2012-09-20 13:11:52.937317532 +0300
 @@ -5,10 +5,11 @@
  TEMPLATE = app
  QT += network xml
@@ -14,9 +14,9 @@
  
  RESOURCES = icons.qrc
  
-@@ -61,10 +62,6 @@
-                translations/smtube_eu.ts \
-                translations/smtube_pt.ts
+@@ -63,10 +64,6 @@
+                translations/smtube_hu.ts \
+                translations/smtube_pl.ts
  
 -# qtsingleapplication
 -SOURCES += qtsingleapplication.cpp qtlocalpeer.cpp
@@ -25,8 +25,8 @@
  unix {
      UI_DIR = .ui
      MOC_DIR = .moc
---- smplayer-0.8.0/src/smplayer.pro	2012-04-02 12:09:38.000000000 +0300
-+++ smplayer-0.8.0/src/smplayer.pro	2012-04-06 04:44:47.313246489 +0300
+--- smplayer-0.8.1/src/smplayer.pro	2012-06-01 18:37:36.000000000 +0300
++++ smplayer-0.8.1/src/smplayer.pro	2012-09-20 13:11:52.937317532 +0300
 @@ -3,6 +3,7 @@
  
  CONFIG += qt warn_on
