@@ -1,8 +1,8 @@
-%global smtube_ver 1.1
+%global smtube_ver 1.2.1
 
 Name:           smplayer
-Version:        0.8.0
-Release:        2%{?dist}
+Version:        0.8.1
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -17,8 +17,8 @@ Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.t
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.0-desktop-files.patch
-Patch1:         smplayer-0.8.0-system-quazip.patch
-Patch2:         smplayer-0.8.0-system-qtsingleapplication.patch
+Patch1:         smplayer-0.8.1-system-quazip.patch
+Patch2:         smplayer-0.8.1-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
@@ -27,6 +27,7 @@ BuildRequires:  qtsingleapplication-devel
 # smplayer without mplayer is quite useless
 Requires:       mplayer
 Requires:       kde-filesystem
+%{?_qt4_version:Requires: qt4%{?_isa} >= %{_qt4_version}}
 
 %description
 smplayer intends to be a complete front-end for Mplayer, from basic features
@@ -40,9 +41,10 @@ the Qt toolkit, so it's multi-platform.
 %setup -qn %{name}-%{version}
 %setup -a3 -qn %{name}-%{version}
 #remove some bundle sources 
-rm -rf zlib-1.2.6
+rm -rf zlib
 rm -rf src/findsubtitles/quazip
 rm -rf src/qtsingleapplication/
+rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 
 %patch0 -p0 -b .desktop-files
 %patch1 -p1 -b .quazip
@@ -54,9 +56,6 @@ rm -rf src/qtsingleapplication/
 iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog 
 mv Changelog.utf8 Changelog
 
-# use lrelease from qt4-devel
-sed -i 's|LRELEASE=lrelease|LRELEASE=%{_bindir}/lrelease-qt4|' Makefile
-
 # fix path of docs
 sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/share/doc/smplayer-%{version}|' Makefile
 
@@ -67,15 +66,13 @@ sed -i '/cd src && $(QMAKE) $(QMAKE_OPTS) && $(DEFS) make/s!$! %{?_smp_mflags}!'
 echo "NotShowIn=KDE;" >> smplayer_enqueue.desktop
 
 %build
-make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix}
+make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt4
 
 pushd smtube-%{smtube_ver}
-sed -i 's|lrelease|%{_bindir}/lrelease-qt4|' Makefile
-sed -i 's|qmake|%{_qt4_qmake}|' Makefile
 sed -i 's|/usr/local|%{_prefix}|' Makefile
 sed -i 's|doc/smtube|doc/%{name}-%{version}/smtube|' Makefile
 sed -i 's|smtube/translations|smplayer/translations|' Makefile
-make PREFIX=%{_prefix}
+make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt4
 popd
 
 
@@ -130,6 +127,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Thu Sep 20 2012 Sérgio Basto <sergio@serjux.com> - 0.8.1-1
+- New upsteam release.
+- rfbz #2113, all done by Nucleo.
+
 * Sat Apr 28 2012 Sérgio Basto <sergio@serjux.com> - 0.8.0-2
 - fix smtube translations.
 - drop support for Fedora < 9 and EPEL 5, since we need kde4.
