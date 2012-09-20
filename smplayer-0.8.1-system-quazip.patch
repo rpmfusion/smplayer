@@ -1,0 +1,73 @@
+--- smplayer-0.8.1/src/findsubtitles/findsubtitles.pro	2012-03-31 15:46:16.000000000 +0300
++++ smplayer-0.8.1/src/findsubtitles/findsubtitles.pro	2012-09-20 13:06:27.086599698 +0300
+@@ -34,30 +34,14 @@
+ DEFINES += NO_SMPLAYER_SUPPORT DOWNLOAD_SUBS
+ 
+ contains( DEFINES, DOWNLOAD_SUBS ) {
+-	INCLUDEPATH += filedownloader quazip
+-	DEPENDPATH += filedownloader quazip
++	INCLUDEPATH += filedownloader 
++	DEPENDPATH += filedownloader 
+ 
+ 	HEADERS += filedownloader.h subchooserdialog.h
+ 	SOURCES += filedownloader.cpp subchooserdialog.cpp
+ 
+ 	FORMS += subchooserdialog.ui
+ 
+-	HEADERS += crypt.h \
+-	           ioapi.h \
+-	           quazip.h \
+-	           quazipfile.h \
+-	           quazipfileinfo.h \
+-	           quazipnewinfo.h \
+-	           unzip.h \
+-	           zip.h
+-
+-	SOURCES += ioapi.c \
+-	           quazip.cpp \
+-	           quazipfile.cpp \
+-	           quazipnewinfo.cpp \
+-	           unzip.c \
+-	           zip.c
+-
+ 	LIBS += -lz
+ 	
+ 	win32 {
+--- smplayer-0.8.1/src/smplayer.pro	2012-06-01 18:37:36.000000000 +0300
++++ smplayer-0.8.1/src/smplayer.pro	2012-09-20 13:06:27.087599689 +0300
+@@ -258,31 +258,17 @@
+ 
+ # Download subtitles
+ contains( DEFINES, DOWNLOAD_SUBS ) {
+-	INCLUDEPATH += findsubtitles/filedownloader findsubtitles/quazip
+-	DEPENDPATH += findsubtitles/filedownloader findsubtitles/quazip
++	INCLUDEPATH += findsubtitles/filedownloader
++	DEPENDPATH += findsubtitles/filedownloader
+ 
+ 	HEADERS += filedownloader.h subchooserdialog.h fixsubs.h
+ 	SOURCES += filedownloader.cpp subchooserdialog.cpp fixsubs.cpp
+ 
+ 	FORMS += subchooserdialog.ui
+ 
+-	HEADERS += crypt.h \
+-	           ioapi.h \
+-	           quazip.h \
+-	           quazipfile.h \
+-	           quazipfileinfo.h \
+-	           quazipnewinfo.h \
+-	           unzip.h \
+-	           zip.h
++	INCLUDEPATH += /usr/include/quazip /usr/include/minizip
+ 
+-	SOURCES += ioapi.c \
+-	           quazip.cpp \
+-	           quazipfile.cpp \
+-	           quazipnewinfo.cpp \
+-	           unzip.c \
+-	           zip.c
+-
+-	LIBS += -lz
++	LIBS += -lz -lquazip
+ 	
+ 	win32 {
+ 		INCLUDEPATH += ..\\zlib
