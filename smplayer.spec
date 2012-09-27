@@ -38,7 +38,6 @@ at the same point and with the same settings. smplayer is developed with
 the Qt toolkit, so it's multi-platform.
 
 %prep
-%setup -qn %{name}-%{version}
 %setup -a3 -qn %{name}-%{version}
 #remove some bundle sources 
 rm -rf zlib
@@ -127,6 +126,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Thu Sep 27 2012 Sérgio Basto <sergio@serjux.com> - 0.8.1-2
+- fix rfbz #2488
+
 * Thu Sep 20 2012 Sérgio Basto <sergio@serjux.com> - 0.8.1-1
 - New upsteam release.
 - rfbz #2113, all done by Nucleo.
