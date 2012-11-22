@@ -1,7 +1,7 @@
-%global smtube_ver 1.2.1
+%global smtube_ver 1.3
 
 Name:           smplayer
-Version:        0.8.1
+Version:        0.8.2
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -119,6 +119,7 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/applications/rpmfusion-smplayer*.desktop
 %{_datadir}/applications/smtube.desktop
 %{_datadir}/icons/hicolor/*/apps/smplayer.png
+%{_datadir}/icons/hicolor/*/apps/smplayer.svg
 %{_datadir}/icons/hicolor/*/apps/smtube.png
 %{_datadir}/smplayer/
 %{_mandir}/man1/smplayer.1.gz
@@ -126,6 +127,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Thu Nov 22 2012 Sérgio Basto <sergio@serjux.com> - 0.8.2-1
+- New upsteam release.
+
 * Thu Sep 27 2012 Sérgio Basto <sergio@serjux.com> - 0.8.1-2
 - fix rfbz #2488
 
