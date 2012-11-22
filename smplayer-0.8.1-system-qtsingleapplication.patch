@@ -1,5 +1,5 @@
---- smplayer-0.8.1/smtube-1.2.1/src/smtube.pro	2012-05-09 01:12:42.000000000 +0300
-+++ smplayer-0.8.1/smtube-1.2.1/src/smtube.pro	2012-09-20 13:11:52.937317532 +0300
+--- smplayer-0.8.1/smtube-1.3/src/smtube.pro	2012-05-09 01:12:42.000000000 +0300
++++ smplayer-0.8.1/smtube-1.3/src/smtube.pro	2012-09-20 13:11:52.937317532 +0300
 @@ -5,10 +5,11 @@
  TEMPLATE = app
  QT += network xml

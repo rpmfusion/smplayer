@@ -1,7 +1,7 @@
-%global smtube_ver 1.2.1
+%global smtube_ver 1.3
 
 Name:           smplayer
-Version:        0.8.1
+Version:        0.8.2
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -38,7 +38,6 @@ at the same point and with the same settings. smplayer is developed with
 the Qt toolkit, so it's multi-platform.
 
 %prep
-%setup -qn %{name}-%{version}
 %setup -a3 -qn %{name}-%{version}
 #remove some bundle sources 
 rm -rf zlib
@@ -120,6 +119,7 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/applications/rpmfusion-smplayer*.desktop
 %{_datadir}/applications/smtube.desktop
 %{_datadir}/icons/hicolor/*/apps/smplayer.png
+%{_datadir}/icons/hicolor/*/apps/smplayer.svg
 %{_datadir}/icons/hicolor/*/apps/smtube.png
 %{_datadir}/smplayer/
 %{_mandir}/man1/smplayer.1.gz
@@ -127,6 +127,12 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Thu Nov 22 2012 Sérgio Basto <sergio@serjux.com> - 0.8.2-1
+- New upsteam release.
+
+* Thu Sep 27 2012 Sérgio Basto <sergio@serjux.com> - 0.8.1-2
+- fix rfbz #2488
+
 * Thu Sep 20 2012 Sérgio Basto <sergio@serjux.com> - 0.8.1-1
 - New upsteam release.
 - rfbz #2113, all done by Nucleo.
