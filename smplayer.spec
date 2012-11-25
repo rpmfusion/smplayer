@@ -2,7 +2,7 @@
 
 Name:           smplayer
 Version:        0.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -127,6 +127,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Sun Nov 25 2012 Sérgio Basto <sergio@serjux.com> - 0.8.2-2
+- 0.8.2 new source 0dee3f9a4f0d87d37455efc800f9bba7 smplayer-0.8.2.tar.bz2 this one has some minor
+  fixes ... , smplayer-0.8.2.tar.bz2 was announced at 2012-11-24. 
+
 * Thu Nov 22 2012 Sérgio Basto <sergio@serjux.com> - 0.8.2-1
 - New upsteam release.
 
