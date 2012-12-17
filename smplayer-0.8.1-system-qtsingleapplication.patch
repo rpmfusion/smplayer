@@ -1,5 +1,5 @@
---- smplayer-0.8.1/smtube-1.3/src/smtube.pro	2012-05-09 01:12:42.000000000 +0300
-+++ smplayer-0.8.1/smtube-1.3/src/smtube.pro	2012-09-20 13:11:52.937317532 +0300
+--- smplayer-0.8.2.1/smtube-1.4/src/smtube.pro.qtsingleapplication	2012-11-30 16:46:02.000000000 +0000
++++ smplayer-0.8.2.1/smtube-1.4/src/smtube.pro	2012-12-17 03:10:55.424870074 +0000
 @@ -5,10 +5,11 @@
  TEMPLATE = app
  QT += network xml
@@ -14,9 +14,9 @@
  
  RESOURCES = icons.qrc
  
-@@ -63,10 +64,6 @@
-                translations/smtube_hu.ts \
-                translations/smtube_pl.ts
+@@ -65,10 +66,6 @@ TRANSLATIONS = translations/smtube_es.ts
+                translations/smtube_gl.ts \
+                translations/smtube_el.ts
  
 -# qtsingleapplication
 -SOURCES += qtsingleapplication.cpp qtlocalpeer.cpp

@@ -1,8 +1,8 @@
-%global smtube_ver 1.3
+%global smtube_ver 1.4
 
 Name:           smplayer
-Version:        0.8.2
-Release:        3%{?dist}
+Version:        0.8.2.1
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -127,6 +127,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Mon Dec 17 2012 Sérgio Basto <sergio@serjux.com> - 0.8.2.1-1
+- New updates to smplayer-0.8.2.1 and smtube-1.4 .
+
 * Sun Nov 25 2012 Sérgio Basto <sergio@serjux.com> - 0.8.2-3
 - now smtube new source b372bd396c068aa28798bf2b5385bf59  smtube-1.3.tar.bz2 .
 
