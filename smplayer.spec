@@ -1,7 +1,7 @@
-%global smtube_ver 1.4
+%global smtube_ver 1.5
 
 Name:           smplayer
-Version:        0.8.2.1
+Version:        0.8.3
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -19,6 +19,7 @@ Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.t
 Patch0:         smplayer-0.8.0-desktop-files.patch
 Patch1:         smplayer-0.8.1-system-quazip.patch
 Patch2:         smplayer-0.8.1-system-qtsingleapplication.patch
+Patch3:         smplayer-0.8.3-smtube-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
@@ -48,6 +49,9 @@ rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 %patch0 -p0 -b .desktop-files
 %patch1 -p1 -b .quazip
 %patch2 -p1 -b .qtsingleapplication
+pushd smtube-%{smtube_ver}
+%patch3 -p1 -b .qtsingleapplication
+popd
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -127,6 +131,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Mon Dec 24 2012 Sérgio Basto <sergio@serjux.com> - 0.8.3-1
+- New updates to smplayer-0.8.3 and smtube-1.5 . Fix for Youtube playback.
+
 * Mon Dec 17 2012 Sérgio Basto <sergio@serjux.com> - 0.8.2.1-1
 - New updates to smplayer-0.8.2.1 and smtube-1.4 .
 
