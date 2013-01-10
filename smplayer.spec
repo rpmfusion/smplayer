@@ -2,7 +2,7 @@
 
 Name:           smplayer
 Version:        0.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -16,7 +16,7 @@ Source1:        smplayer_enqueue_kde4.desktop
 Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
-Patch0:         smplayer-0.8.0-desktop-files.patch
+Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch1:         smplayer-0.8.1-system-quazip.patch
 Patch2:         smplayer-0.8.1-system-qtsingleapplication.patch
 Patch3:         smplayer-0.8.3-smtube-system-qtsingleapplication.patch
@@ -131,6 +131,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Thu Jan 10 2013 Sérgio Basto <sergio@serjux.com> - 0.8.3-2
+- bug #2635, Update *.desktop with video/webm; mimetype support, as upstream do in svn r5005.
+
 * Mon Dec 24 2012 Sérgio Basto <sergio@serjux.com> - 0.8.3-1
 - New updates to smplayer-0.8.3 and smtube-1.5 . Fix for Youtube playback.
 
