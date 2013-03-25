@@ -2,7 +2,7 @@
 
 Name:           smplayer
 Version:        0.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -131,7 +131,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
-* Mon Mar 25 2013 Sérgio Basto <sergio@serjux.com> - 0.8.4-1 
+* Mon Mar 25 2013 Sérgio Basto <sergio@serjux.com> - 0.8.4-2
+- New tag 
+
+* Mon Mar 25 2013 Sérgio Basto <sergio@serjux.com> - 0.8.4-1
 - New upsteam release.
 - Drop "updates *.desktop with video/webm;" on patch smplayer-0.8.3-desktop-files.patch.
 - Fix patch smplayer-0.8.3-smtube-system-qtsingleapplication.patch 
