@@ -1,6 +1,6 @@
---- smplayer.desktop	2012-03-23 09:57:49.000000000 +0200
-+++ smplayer.desktop	2012-04-06 04:39:05.971492030 +0300
-@@ -13,7 +13,7 @@
+--- smplayer.desktop.orig	2013-01-09 23:37:52.000000000 +0000
++++ smplayer.desktop	2013-03-25 21:58:19.197931695 +0000
+@@ -13,7 +13,7 @@ Comment[ru]=Мощный интерфе�
  Comment[uk]=Потужний інтерфейс до MPlayer
  Comment[eu]=MPlayerrentzako interfaze grafiko handi bat
  Comment[zh_CN]=一个优秀的 MPlayer 前端
@@ -9,25 +9,13 @@
  GenericName=Media Player
  GenericName[cs]=Přehrávač multimédií
  GenericName[es]=Reproductor multimedia
-@@ -25,7 +25,7 @@ GenericName[uk]=Програвач ме�
- GenericName[eu]=Multimedia irakurgailua
- GenericName[zh_CN]=媒体播放器
- Icon=smplayer
--MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;
-+MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;video/webm;
- Name=SMPlayer
- Type=Application
- X-KDE-StartupNotify=false
---- smplayer_enqueue.desktop	2012-09-27 22:12:34.000000000 +0100
-+++ smplayer_enqueue.desktop	2013-01-10 02:31:01.267628857 +0000
-@@ -1,8 +1,8 @@
+--- smplayer_enqueue.desktop.orig	2013-01-09 23:37:52.000000000 +0000
++++ smplayer_enqueue.desktop	2013-03-25 21:58:19.197931695 +0000
+@@ -1,6 +1,6 @@
  [Desktop Entry]
  Categories=Qt;KDE;AudioVideo;Player;Video;
 -Exec=smplayer -add-to-playlist %U
 +Exec=smplayer -add-to-playlist %F
  Icon=smplayer
--MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;
-+MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;video/webm;
+ MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;video/webm;
  Name=Enqueue in SMPlayer
- Name[cs]=Přidat do fronty SMplayeru
- Name[es]=Añadir a la lista de reproducción de SMPlayer
