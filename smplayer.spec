@@ -1,8 +1,8 @@
-%global smtube_ver 1.5
+%global smtube_ver 1.6
 
 Name:           smplayer
-Version:        0.8.3
-Release:        1%{?dist}
+Version:        0.8.4
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -16,7 +16,7 @@ Source1:        smplayer_enqueue_kde4.desktop
 Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
-Patch0:         smplayer-0.8.0-desktop-files.patch
+Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch1:         smplayer-0.8.1-system-quazip.patch
 Patch2:         smplayer-0.8.1-system-qtsingleapplication.patch
 Patch3:         smplayer-0.8.3-smtube-system-qtsingleapplication.patch
@@ -131,6 +131,18 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Mon Mar 25 2013 Sérgio Basto <sergio@serjux.com> - 0.8.4-2
+- New tag 
+
+* Mon Mar 25 2013 Sérgio Basto <sergio@serjux.com> - 0.8.4-1
+- New upsteam release.
+- Drop "updates *.desktop with video/webm;" on patch smplayer-0.8.3-desktop-files.patch.
+- Fix patch smplayer-0.8.3-smtube-system-qtsingleapplication.patch 
+- Fix dates on changelog specs.
+
+* Thu Jan 10 2013 Sérgio Basto <sergio@serjux.com> - 0.8.3-2
+- bug #2635, Update *.desktop with video/webm; mimetype support, as upstream do in svn r5005.
+
 * Mon Dec 24 2012 Sérgio Basto <sergio@serjux.com> - 0.8.3-1
 - New updates to smplayer-0.8.3 and smtube-1.5 . Fix for Youtube playback.
 
@@ -186,7 +198,7 @@ update-desktop-database &> /dev/null || :
 * Sat Apr 24 2010 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.9-1
 - new upstream version: 0.6.9
 
-* Sun Jul 28 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.8-1
+* Sun Jun 28 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.8-1
 - new upstream version: 0.6.8
 
 * Sun Mar 29 2009 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.7-1
@@ -223,7 +235,7 @@ update-desktop-database &> /dev/null || :
 * Tue Jun 17 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.1-1
 - update to latest upstream version
 
-* Sat Feb 24 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.0-0.3.rc2
+* Sun Feb 24 2008 Sebastian Vahl <fedora@deadbabylon.de> - 0.6.0-0.3.rc2
 - add %%{?_smp_mflags} in Makefile to really use it
 - finally fix usage of macros
 - mode 0644 for desktop-file isn't needed anymore
@@ -254,7 +266,7 @@ update-desktop-database &> /dev/null || :
 - don't add category "Multimedia" to desktop-file
 - correct url of Source0
 
-* Mon Jul 29 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.20-1
+* Sun Jul 29 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.20-1
 - new upstream version: 0.5.20
 
 * Mon Jun 18 2007 Sebastian Vahl <fedora@deadbabylon.de> - 0.5.14-1
