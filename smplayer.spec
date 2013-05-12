@@ -1,8 +1,8 @@
-%global smtube_ver 1.6
+%global smtube_ver 1.7
 
 Name:           smplayer
-Version:        0.8.4
-Release:        2%{?dist}
+Version:        0.8.5
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -18,8 +18,8 @@ Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.t
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch1:         smplayer-0.8.1-system-quazip.patch
-Patch2:         smplayer-0.8.1-system-qtsingleapplication.patch
-Patch3:         smplayer-0.8.3-smtube-system-qtsingleapplication.patch
+Patch2:         smplayer-0.8.5-system-qtsingleapplication.patch
+Patch3:         smtube-1.7-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
@@ -131,6 +131,11 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Sat May 11 2013 Sérgio Basto <sergio@serjux.com> - 0.8.5-1
+- Update smplayer to 0.8.5 and smtube to 1.7
+- Fix patches smplayer-0.8.3-smtube-system-qtsingleapplication and
+  smplayer-0.8.1-system-qtsingleapplication.patch for 0.8.5 and smtube 1.7
+
 * Mon Mar 25 2013 Sérgio Basto <sergio@serjux.com> - 0.8.4-2
 - New tag 
 
