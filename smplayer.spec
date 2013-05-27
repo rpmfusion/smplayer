@@ -2,7 +2,7 @@
 
 Name:           smplayer
 Version:        0.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -131,6 +131,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Mon May 27 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.8.5-2
+- Rebuilt for x264/FFmpeg
+
 * Sat May 11 2013 Sérgio Basto <sergio@serjux.com> - 0.8.5-1
 - Update smplayer to 0.8.5 and smtube to 1.7
 - Fix patches smplayer-0.8.3-smtube-system-qtsingleapplication and
