@@ -1,8 +1,8 @@
-%global smtube_ver 1.7
+%global smtube_ver 1.8
 
 Name:           smplayer
-Version:        0.8.5
-Release:        2%{?dist}
+Version:        0.8.6
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -17,7 +17,7 @@ Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.t
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
-Patch1:         smplayer-0.8.1-system-quazip.patch
+#Patch1:         smplayer-0.8.1-system-quazip.patch
 Patch2:         smplayer-0.8.5-system-qtsingleapplication.patch
 Patch3:         smtube-1.7-system-qtsingleapplication.patch
 
@@ -47,7 +47,7 @@ rm -rf src/qtsingleapplication/
 rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 
 %patch0 -p0 -b .desktop-files
-%patch1 -p1 -b .quazip
+#patch1 -p1 -b .quazip
 %patch2 -p1 -b .qtsingleapplication
 pushd smtube-%{smtube_ver}
 %patch3 -p1 -b .qtsingleapplication
@@ -131,6 +131,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Tue Oct 01 2013 Sérgio Basto <sergio@serjux.com> - 0.8.6-1
+- Update smplayer to 0.8.6 and smtube to 1.8
+
 * Mon May 27 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.8.5-2
 - Rebuilt for x264/FFmpeg
 
