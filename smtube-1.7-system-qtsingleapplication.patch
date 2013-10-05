@@ -14,14 +14,12 @@
  
  RESOURCES = icons.qrc
  
-@@ -76,10 +77,6 @@ TRANSLATIONS = translations/smtube_es.ts
-                translations/smtube_ka.ts
+@@ -93,8 +94,6 @@ TRANSLATIONS = translations/smtube_es.ts
  
  
--# qtsingleapplication
+ # qtsingleapplication
 -SOURCES += qtsingleapplication.cpp qtlocalpeer.cpp
 -HEADERS += qtsingleapplication.h qtlocalpeer.h
--
+ 
  unix {
      UI_DIR = .ui
-     MOC_DIR = .moc
