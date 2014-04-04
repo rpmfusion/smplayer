@@ -1,5 +1,5 @@
---- ./src/smplayer.pro.qtsingleapplication	2013-05-11 18:48:18.057730407 +0100
-+++ ./src/smplayer.pro	2013-05-12 00:39:37.634213140 +0100
+--- ./src/smplayer.pro.qtsingleapplication	2014-03-21 00:12:48.000000000 +0000
++++ ./src/smplayer.pro	2014-04-04 03:57:26.564711177 +0100
 @@ -3,6 +3,7 @@ LANGUAGE = C++
  
  CONFIG += qt warn_on
@@ -8,7 +8,7 @@
  #CONFIG += debug
  
  QT += network xml
-@@ -263,15 +264,6 @@ FORMS = inputdvddirectory.ui logwindowba
+@@ -266,14 +267,6 @@ FORMS = inputdvddirectory.ui logwindowba
          about.ui inputmplayerversion.ui errordialog.ui timedialog.ui \
          toolbareditor.ui multilineinputdialog.ui
  
@@ -17,10 +17,9 @@
 -	INCLUDEPATH += qtsingleapplication
 -	DEPENDPATH += qtsingleapplication
 -
--	SOURCES += qtsingleapplication.cpp qtlocalpeer.cpp
--	HEADERS += qtsingleapplication.h qtlocalpeer.h
+-	SOURCES += qtsingleapplication/qtsingleapplication.cpp qtsingleapplication/qtlocalpeer.cpp
+-	HEADERS += qtsingleapplication/qtsingleapplication.h qtsingleapplication/qtlocalpeer.h
 -}
--
+ 
  # Find subtitles dialog
  contains( DEFINES, FIND_SUBTITLES ) {
- 	DEFINES += DOWNLOAD_SUBS
