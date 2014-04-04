@@ -1,0 +1,18 @@
+--- ./src/smtube.pro.qtsingleapplication	2014-04-04 04:15:52.637706286 +0100
++++ ./src/smtube.pro	2014-04-04 04:20:22.826212863 +0100
+@@ -5,7 +5,6 @@
+ TEMPLATE = app
+ QT += network xml
+ TARGET = smtube
+-INCLUDEPATH += qtsingleapplication
+ 
+ CONFIG += qt warn_on
+ CONFIG += release
+@@ -17,7 +16,6 @@ RESOURCES = icons.qrc
+ 
+ DEFINES += NO_SMPLAYER_SUPPORT
+ DEFINES += YT_USE_SCRIPT
+-DEFINES += USE_SINGLE_APPLICATION
+ 
+ isEqual(QT_MAJOR_VERSION, 5) {
+     QT += widgets gui
