@@ -1,7 +1,7 @@
-%global smtube_ver 1.8
+%global smtube_ver 2.1
 
 Name:           smplayer
-Version:        0.8.6
+Version:        14.3.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -17,9 +17,8 @@ Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.t
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
-#Patch1:         smplayer-0.8.1-system-quazip.patch
 Patch2:         smplayer-0.8.5-system-qtsingleapplication.patch
-Patch3:         smtube-1.7-system-qtsingleapplication.patch
+Patch3:         smtube-2.1-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
@@ -42,12 +41,12 @@ the Qt toolkit, so it's multi-platform.
 %setup -a3 -qn %{name}-%{version}
 #remove some bundle sources 
 rm -rf zlib
-rm -rf src/findsubtitles/quazip
 rm -rf src/qtsingleapplication/
 rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
+#TODO unbundle libmaia 
+#rm -rf src/findsubtitles/libmaia
 
 %patch0 -p0 -b .desktop-files
-#patch1 -p1 -b .quazip
 %patch2 -p1 -b .qtsingleapplication
 pushd smtube-%{smtube_ver}
 %patch3 -p1 -b .qtsingleapplication
@@ -131,6 +130,11 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Fri Apr 04 2014 Sérgio Basto <sergio@serjux.com> - 14.3.0-1
+- New upstream release, Previous version was 0.8.6, this new release is 14.3...
+  What happened? Now the version is just the year and month of the release.
+- Patches refactor.
+
 * Tue Oct 01 2013 Sérgio Basto <sergio@serjux.com> - 0.8.6-1
 - Update smplayer to 0.8.6 and smtube to 1.8
 
