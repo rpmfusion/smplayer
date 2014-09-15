@@ -1,8 +1,8 @@
-%global smtube_ver 2.1
+%global smtube_ver 14.8.0
 
 Name:           smplayer
-Version:        14.3.0
-Release:        2%{?dist}
+Version:        14.9.0
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -130,6 +130,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Mon Sep 15 2014 Sérgio Basto <sergio@serjux.com> - 14.9.0-1
+- New upstream releases smplayer 14.9.0 and smtube 14.8.0
+- Rebase patches 1 and 3 .
+
 * Mon Sep 01 2014 Sérgio Basto <sergio@serjux.com> - 14.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
