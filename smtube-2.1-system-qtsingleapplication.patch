@@ -1,5 +1,5 @@
---- ./src/smtube.pro.qtsingleapplication	2014-04-04 04:15:52.637706286 +0100
-+++ ./src/smtube.pro	2014-04-04 04:20:22.826212863 +0100
+--- ./src/smtube.pro.orig	2014-07-24 22:23:22.000000000 +0100
++++ ./src/smtube.pro	2014-09-15 01:38:17.755515996 +0100
 @@ -5,7 +5,6 @@
  TEMPLATE = app
  QT += network xml
@@ -13,6 +13,6 @@
  DEFINES += NO_SMPLAYER_SUPPORT
  DEFINES += YT_USE_SCRIPT
 -DEFINES += USE_SINGLE_APPLICATION
+ DEFINES += YT_DL
  
  isEqual(QT_MAJOR_VERSION, 5) {
-     QT += widgets gui
