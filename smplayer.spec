@@ -1,8 +1,8 @@
-%global smtube_ver 14.8.0
+%global smtube_ver 15.1.26
 
 Name:           smplayer
-Version:        14.9.0
-Release:        1%{?dist}
+Version:        14.9.0.6690
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -130,6 +130,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Wed Mar 25 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6690-2
+- Update smplayer to smplayer-14.9.0.6690 and smtube to smtube-15.1.26
+
 * Mon Sep 15 2014 Sérgio Basto <sergio@serjux.com> - 14.9.0-1
 - New upstream releases smplayer 14.9.0 and smtube 14.8.0
 - Rebase patches 1 and 3 .
