@@ -1,13 +1,13 @@
-%global smtube_ver 15.1.26
+%global smtube_ver 15.5.10
 
 Name:           smplayer
-Version:        14.9.0.6690
+Version:        14.9.0.6966
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
 License:        GPLv2+
-URL:            http://smplayer.sourceforge.net/linux/
+URL:            http://smplayer.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
 # Add a servicemenu to enqeue files in smplayer's playlist. 
 # see also: 
@@ -17,13 +17,14 @@ Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.t
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
-Patch2:         smplayer-0.8.5-system-qtsingleapplication.patch
-Patch3:         smtube-2.1-system-qtsingleapplication.patch
+Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
+Patch3:         smtube-15.5.10-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
 BuildRequires:  quazip-devel
 BuildRequires:  qtsingleapplication-devel
+BuildRequires:  qtwebkit-devel
 # smplayer without mplayer is quite useless
 Requires:       mplayer
 Requires:       kde-filesystem
@@ -39,11 +40,11 @@ the Qt toolkit, so it's multi-platform.
 
 %prep
 %setup -a3 -qn %{name}-%{version}
-#remove some bundle sources 
+#remove some bundle sources
 rm -rf zlib
 rm -rf src/qtsingleapplication/
 rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
-#TODO unbundle libmaia 
+#TODO unbundle libmaia
 #rm -rf src/findsubtitles/libmaia
 
 %patch0 -p0 -b .desktop-files
@@ -132,6 +133,9 @@ update-desktop-database &> /dev/null || :
 %changelog
 * Wed Mar 25 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6690-1
 - Update smplayer to smplayer-14.9.0.6690 and smtube to smtube-15.1.26
+- Fix warning "The desktop entry file "ServiceMenus/smplayer_enqueue.desktop"
+  has an empty mimetype!
+- Rebase patches 2 and 3 .
 
 * Mon Sep 15 2014 Sérgio Basto <sergio@serjux.com> - 14.9.0-1
 - New upstream releases smplayer 14.9.0 and smtube 14.8.0
