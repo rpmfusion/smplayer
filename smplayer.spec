@@ -2,7 +2,7 @@
 
 Name:           smplayer
 Version:        14.9.0.6966
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -131,11 +131,14 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Sat Jun 06 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6966-2
+- Update to smplayer-14.9.0.6966 and smtube-15.5.10
+- Fix warning "The desktop entry file "ServiceMenus/smplayer_enqueue.desktop
+  has an empty mimetype! " .
+- Rebase patches 2 and 3 .
+
 * Wed Mar 25 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6690-1
 - Update smplayer to smplayer-14.9.0.6690 and smtube to smtube-15.1.26
-- Fix warning "The desktop entry file "ServiceMenus/smplayer_enqueue.desktop"
-  has an empty mimetype!
-- Rebase patches 2 and 3 .
 
 * Mon Sep 15 2014 Sérgio Basto <sergio@serjux.com> - 14.9.0-1
 - New upstream releases smplayer 14.9.0 and smtube 14.8.0
