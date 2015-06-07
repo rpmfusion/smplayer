@@ -1,8 +1,8 @@
-%global smtube_ver 15.5.10
+%global smtube_ver 15.5.17
 
 Name:           smplayer
 Version:        14.9.0.6966
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -131,6 +131,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Sun Jun 07 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6966-2
+- Update to smtube-15.5.17
+
 * Sat Jun 06 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6966-1
 - Update to smplayer-14.9.0.6966 and smtube-15.5.10
 - Fix warning "The desktop entry file "ServiceMenus/smplayer_enqueue.desktop
