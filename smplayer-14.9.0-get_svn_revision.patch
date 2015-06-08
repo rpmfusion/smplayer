@@ -1,0 +1,13 @@
+I think is better have a hardcore version than (svn r0UNKNOWN)
+
+--- ./get_svn_revision.sh.orig	2015-06-08 23:16:42.600723909 +0100
++++ ./get_svn_revision.sh	2015-06-08 23:17:26.094211048 +0100
+@@ -10,7 +10,7 @@ svn_revision=`LC_ALL=C svn info 2> /dev/
+ test $svn_revision || svn_revision=`cd "$1" && LC_ALL=C svn info 2> /dev/null | grep Revision | cut -d' ' -f2`
+ test $svn_revision || svn_revision=`cd "$1" && grep revision .svn/entries 2>/dev/null | cut -d '"' -f2`
+ test $svn_revision || svn_revision=`cd "$1" && sed -n -e '/^dir$/{n;p;q}' .svn/entries 2>/dev/null`
+-test $svn_revision || svn_revision=0UNKNOWN
++test $svn_revision || svn_revision=6966
+ 
+ if test "$2"; then
+ extra="-$2"
