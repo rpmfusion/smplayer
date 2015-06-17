@@ -1,8 +1,8 @@
 %global smtube_ver 15.5.17
 
 Name:           smplayer
-Version:        14.9.0.6966
-Release:        3%{?dist}
+Version:        14.9.0.6994
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -19,7 +19,6 @@ Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.t
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-15.5.10-system-qtsingleapplication.patch
-Patch4:         smplayer-14.9.0-get_svn_revision.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
@@ -53,7 +52,6 @@ rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 pushd smtube-%{smtube_ver}
 %patch3 -p1 -b .qtsingleapplication
 popd
-%patch4 -p1 -b .svn_revision
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -133,6 +131,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
 
 %changelog
+* Wed Jun 17 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6994-1
+- Update to 4.9.0.6994 .
+- Drop smplayer-14.9.0-get_svn_revision.patch .
+
 * Mon Jun 08 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6966-3
 - Added smplayer-14.9.0-get_svn_revision.patch, I think is better have a
   hardcore version than (svn r0UNKNOWN)
