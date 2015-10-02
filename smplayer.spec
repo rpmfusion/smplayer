@@ -1,7 +1,7 @@
-%global smtube_ver 15.5.17
+%global smtube_ver 15.9.0
 
 Name:           smplayer
-Version:        14.9.0.6994
+Version:        15.9.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -13,7 +13,7 @@ Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.ta
 # see also: 
 # https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
 Source1:        smplayer_enqueue_kde4.desktop
-Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.tar.bz2
+Source3:        http://downloads.sourceforge.net/smtube/smtube-%{smtube_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
@@ -60,7 +60,7 @@ iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog
 mv Changelog.utf8 Changelog
 
 # fix path of docs
-sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/share/doc/smplayer-%{version}|' Makefile
+sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/share/doc/smplayer|' Makefile
 
 # use %{?_smp_mflags}
 sed -i '/cd src && $(QMAKE) $(QMAKE_OPTS) && $(DEFS) make/s!$! %{?_smp_mflags}!' Makefile
@@ -73,7 +73,7 @@ make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt4
 
 pushd smtube-%{smtube_ver}
 sed -i 's|/usr/local|%{_prefix}|' Makefile
-sed -i 's|doc/smtube|doc/%{name}-%{version}/smtube|' Makefile
+sed -i 's|doc/smtube|doc/%{name}/smtube|' Makefile
 sed -i 's|smtube/translations|smplayer/translations|' Makefile
 make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt4
 popd
@@ -117,7 +117,6 @@ fi
 update-desktop-database &> /dev/null || :
 
 %files
-%{_docdir}/%{name}-%{version}/
 %{_bindir}/smplayer
 %{_bindir}/smtube
 %{_datadir}/applications/rpmfusion-smplayer*.desktop
@@ -126,11 +125,19 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/icons/hicolor/*/apps/smplayer.svg
 %{_datadir}/icons/hicolor/*/apps/smtube.png
 %{_datadir}/smplayer/
-%{_mandir}/man1/smplayer.1.gz
 %dir %{_datadir}/kde4/services/ServiceMenus/
 %{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
+%{_mandir}/man1/smplayer.1.gz
+%{_docdir}/%{name}/
 
 %changelog
+* Fri Oct 02 2015 Sérgio Basto <sergio@serjux.com> - 15.9.0-1
+- Update smplayer to 15.9.0 and smtube to 15.9.0 .
+
+* Thu Aug 20 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6994-2
+- Update smtube to 15.8.0 .
+- Removed version of package from _docdir directory (following the guidelines).
+
 * Wed Jun 17 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6994-1
 - Update to 4.9.0.6994 .
 - Drop smplayer-14.9.0-get_svn_revision.patch .
