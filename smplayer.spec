@@ -1,7 +1,7 @@
-%global smtube_ver 15.9.0
+%global smtube_ver 15.11.0
 
 Name:           smplayer
-Version:        15.9.0
+Version:        15.11.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -131,6 +131,9 @@ update-desktop-database &> /dev/null || :
 %{_docdir}/%{name}/
 
 %changelog
+* Sun Dec 06 2015 Sérgio Basto <sergio@serjux.com> - 15.11.0-1
+- Update smplayer and smtube 15.11.0
+
 * Fri Oct 02 2015 Sérgio Basto <sergio@serjux.com> - 15.9.0-1
 - Update smplayer to 15.9.0 and smtube to 15.9.0 .
 
