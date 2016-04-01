@@ -1,6 +1,6 @@
 Name:           smplayer
-Version:        16.1.0
-%global smtube_ver %{version}
+Version:        16.4.0
+%global smtube_ver 16.3.0 
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -17,7 +17,7 @@ Source3:        http://downloads.sourceforge.net/smtube/smtube-%{smtube_ver}.tar
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
-Patch3:         smtube-15.5.10-system-qtsingleapplication.patch
+Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt4-devel
@@ -130,6 +130,9 @@ update-desktop-database &> /dev/null || :
 %{_docdir}/%{name}/
 
 %changelog
+* Fri Apr 01 2016 Sérgio Basto <sergio@serjux.com> - 16.4.0-1
+- Update to 16.4.0
+
 * Sun Jan 17 2016 Sérgio Basto <sergio@serjux.com> - 16.1.0-1
 - Update 16.1.0
 
