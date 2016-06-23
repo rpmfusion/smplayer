@@ -1,6 +1,6 @@
 Name:           smplayer
-Version:        16.4.0
-%global smtube_ver 16.3.0 
+Version:        16.6.0
+%global smtube_ver 16.6.0 
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
@@ -130,6 +130,9 @@ update-desktop-database &> /dev/null || :
 %{_docdir}/%{name}/
 
 %changelog
+* Wed Jun 22 2016 Sérgio Basto <sergio@serjux.com> - 16.6.0-1
+- Update to 16.6.0
+
 * Fri Apr 01 2016 Sérgio Basto <sergio@serjux.com> - 16.4.0-1
 - Update to 16.4.0
 
