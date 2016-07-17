@@ -87,11 +87,11 @@ mv Changelog.utf8 Changelog
 %{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-skins-%{smplayer_skins_ver}/themes/Makefile
 
 %build
-%make_build QMAKE=%{_qt5_qmake} LRELEASE=%{_bindir}/lrelease-qt5
+%make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
 
 pushd smtube-%{smtube_ver}
 sed -i 's|smtube/translations|smplayer/translations|' Makefile
-%make_build QMAKE=%{_qt5_qmake} LRELEASE=%{_bindir}/lrelease-qt5
+%make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
 popd
 
 pushd smplayer-themes-%{smplayer_themes_ver}
