@@ -1,17 +1,18 @@
 Name:           smplayer
-Version:        16.6.0
-%global smtube_ver 16.6.0 
-Release:        2%{?dist}
+Version:        16.7.0
+%global smtube_ver 16.7.2 
+%global smplayer_themes_ver 16.6.0
+%global smplayer_skins_ver 15.2.0
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://smplayer.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
-# Add a servicemenu to enqeue files in smplayer's playlist. 
-# see also: 
-# https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
-Source3:        http://downloads.sourceforge.net/smtube/smtube-%{smtube_ver}.tar.bz2
+Source2:        http://downloads.sourceforge.net/smtube/smtube-%{smtube_ver}.tar.bz2
+Source3:        http://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
+Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
@@ -19,12 +20,16 @@ Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  qt5-qttools
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qttools-devel
+BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
 BuildRequires:  pkgconfig(Qt5Script)
+BuildRequires:  pkgconfig(Qt5Sql)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  qt5-linguist
@@ -46,8 +51,16 @@ remember the state of a played file, so when you play it later it will resume
 at the same point and with the same settings. smplayer is developed with
 the Qt toolkit, so it's multi-platform.
 
+%package themes
+Summary:  Themes and Skins for SMPlayer
+Group:    Video/Players
+Requires: smplayer
+
+%description themes
+A set of themes for SMPlayer and a set of skins for SMPlayer.
+
 %prep
-%setup -a3 -qn %{name}-%{version}
+%setup -qa2 -qa3 -qa4 -qn %{name}-%{version}
 #remove some bundle sources
 rm -rf zlib
 rm -rf src/qtsingleapplication/
@@ -59,6 +72,8 @@ rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 %patch2 -p1 -b .qtsingleapplication
 pushd smtube-%{smtube_ver}
 %patch3 -p1 -b .qtsingleapplication
+# correction for wrong-file-end-of-line-encoding on smtube
+%{__sed} -i 's/\r//' *.txt
 popd
 
 # correction for wrong-file-end-of-line-encoding
@@ -67,27 +82,45 @@ popd
 iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog 
 mv Changelog.utf8 Changelog
 
-# fix path of docs
-sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/share/doc/smplayer|' Makefile
-
-# use %{?_smp_mflags}
-sed -i '/cd src && $(QMAKE) $(QMAKE_OPTS) && $(DEFS) make/s!$! %{?_smp_mflags}!' Makefile
+# change rcc binary
+%{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-themes-%{smplayer_themes_ver}/themes/Makefile
+%{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-skins-%{smplayer_skins_ver}/themes/Makefile
 
 %build
-make QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
+%make_build QMAKE=%{_qt5_qmake} LRELEASE=%{_bindir}/lrelease-qt5
 
 pushd smtube-%{smtube_ver}
-sed -i 's|doc/smtube|doc/%{name}/smtube|' Makefile
 sed -i 's|smtube/translations|smplayer/translations|' Makefile
-make QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
+%make_build QMAKE=%{_qt5_qmake} LRELEASE=%{_bindir}/lrelease-qt5
+popd
+
+pushd smplayer-themes-%{smplayer_themes_ver}
+%make_build
+popd
+
+pushd smplayer-skins-%{smplayer_skins_ver}
+mv README.txt README-skins.txt
+mv Changelog Changelog-skins.txt
+%make_build
 popd
 
 
-
 %install
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}
+
+# remove all License docs
+rm -r %{buildroot}%{_docdir}/%{name}/Copying*
+
 pushd smtube-%{smtube_ver}
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}/smtube
+popd
+
+pushd smplayer-themes-%{smplayer_themes_ver}
+make install PREFIX=%{_prefix} DESTDIR=%{buildroot}
+popd
+
+pushd smplayer-skins-%{smplayer_skins_ver}
+make install PREFIX=%{_prefix} DESTDIR=%{buildroot}
 popd
 
 desktop-file-install --delete-original                   \
@@ -116,6 +149,7 @@ fi
 update-desktop-database &> /dev/null || :
 
 %files
+%license Copying*
 %{_bindir}/smplayer
 %{_bindir}/smtube
 %{_datadir}/applications/smplayer*.desktop
@@ -124,10 +158,24 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/icons/hicolor/*/apps/smplayer.svg
 %{_datadir}/icons/hicolor/*/apps/smtube.png
 %{_datadir}/smplayer/
+%exclude %{_datadir}/smplayer/themes/
 %{_mandir}/man1/smplayer.1.gz
 %{_docdir}/%{name}/
 
+%files themes
+%doc smplayer-themes-%{smplayer_themes_ver}/README.txt
+%doc smplayer-themes-%{smplayer_themes_ver}/Changelog
+%doc smplayer-skins-%{smplayer_skins_ver}/README-skins.txt
+%doc smplayer-skins-%{smplayer_skins_ver}/Changelog-skins.txt
+%license smplayer-themes-%{smplayer_themes_ver}/COPYING*
+%{_datadir}/smplayer/themes/
+
 %changelog
+* Sun Jul 17 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-1
+- Update smplayer to 16.7.0 and smtube to 16.7.2
+- Install smplayer-themes and smplayer-skins
+- Few more cleanup, especially in docs and licenses.
+
 * Sun Jul 17 2016 Sérgio Basto <sergio@serjux.com> - 16.6.0-2
 - Switch builds to Qt5
 - Do not apply a vendor tag to .desktop files (using --vendor).
