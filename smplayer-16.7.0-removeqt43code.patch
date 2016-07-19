@@ -1,0 +1,42 @@
+diff -rup smplayer-16.7.0.orig/src/playlistdock.cpp smplayer-16.7.0/src/playlistdock.cpp
+--- smplayer-16.7.0.orig/src/playlistdock.cpp	2016-01-04 23:34:33.000000000 +0000
++++ smplayer-16.7.0/src/playlistdock.cpp	2016-07-19 01:27:37.913731244 +0100
+@@ -35,18 +35,6 @@ void PlaylistDock::closeEvent( QCloseEve
+ 	e->accept();
+ }
+ 
+-#if QT_VERSION < 0x040300
+-void PlaylistDock::showEvent( QShowEvent * /* event */ ) {
+-	qDebug("PlaylistDock::showEvent");
+-	emit visibilityChanged(true);
+-}
+-
+-void PlaylistDock::hideEvent( QHideEvent * /* event */ ) {
+-	qDebug("PlaylistDock::hideEvent");
+-	emit visibilityChanged(false);
+-}
+-#endif
+-
+ 
+ #include "moc_playlistdock.cpp"
+ 
+diff -rup smplayer-16.7.0.orig/src/playlistdock.h smplayer-16.7.0/src/playlistdock.h
+--- smplayer-16.7.0.orig/src/playlistdock.h	2016-01-15 01:29:42.000000000 +0000
++++ smplayer-16.7.0/src/playlistdock.h	2016-07-19 01:27:14.719484221 +0100
+@@ -32,16 +32,9 @@ public:
+ 
+ signals:
+ 	void closed();
+-#if QT_VERSION < 0x040300
+-	void visibilityChanged(bool visible);
+-#endif
+ 
+ protected:
+ 	virtual void closeEvent( QCloseEvent * e );
+-#if QT_VERSION < 0x040300
+-	virtual void showEvent ( QShowEvent * event );
+-	virtual void hideEvent ( QHideEvent * event );
+-#endif
+ };
+ 
+ #endif

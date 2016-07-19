@@ -3,7 +3,7 @@ Version:        16.7.0
 %global smtube_ver 16.7.2 
 %global smplayer_themes_ver 16.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -18,6 +18,7 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
+Patch4:         smplayer-16.7.0-removeqt43code.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qtbase-devel
@@ -75,6 +76,7 @@ pushd smtube-%{smtube_ver}
 # correction for wrong-file-end-of-line-encoding on smtube
 %{__sed} -i 's/\r//' *.txt
 popd
+%patch4 -p1 -b .qt43
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -171,6 +173,9 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Jul 19 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-2
+- Add patch to fix build in rawhide
+
 * Sun Jul 17 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-1
 - Update smplayer to 16.7.0 and smtube to 16.7.2
 - Install smplayer-themes and smplayer-skins
