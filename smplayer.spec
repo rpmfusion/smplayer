@@ -3,7 +3,7 @@ Version:        16.7.0
 %global smtube_ver 16.7.2 
 %global smplayer_themes_ver 16.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -21,8 +21,7 @@ Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
 Patch4:         smplayer-16.7.0-removeqt43code.patch
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qttools-devel
+BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5DBus)
@@ -30,19 +29,25 @@ BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5PrintSupport)
 BuildRequires:  pkgconfig(Qt5Script)
+BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 BuildRequires:  pkgconfig(Qt5Sql)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  pkgconfig(Qt5Designer)
+BuildRequires:  pkgconfig(zlib)
 BuildRequires:  qt5-linguist
 BuildRequires:  qtsingleapplication-qt5-devel
 BuildRequires:  quazip-qt5-devel
-BuildRequires:  zlib-devel
 # for smtube only
 BuildRequires:  pkgconfig(Qt5WebKit)
-BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 # smplayer without mplayer is quite useless
 Requires:       mplayer
+Requires:       hicolor-icon-theme
+
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
+
+Requires(post): desktop-file-utils
+Requires(postun): desktop-file-utils
 
 %description
 smplayer intends to be a complete front-end for Mplayer, from basic features
@@ -89,66 +94,61 @@ mv Changelog.utf8 Changelog
 %{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-skins-%{smplayer_skins_ver}/themes/Makefile
 
 %build
+#{qmake_qt5} src
 %make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
 
 pushd smtube-%{smtube_ver}
-sed -i 's|smtube/translations|smplayer/translations|' Makefile
-%make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
+    sed -i 's|smtube/translations|smplayer/translations|' Makefile
+    %make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
 popd
 
 pushd smplayer-themes-%{smplayer_themes_ver}
-%make_build
+    %make_build
 popd
 
 pushd smplayer-skins-%{smplayer_skins_ver}
-mv README.txt README-skins.txt
-mv Changelog Changelog-skins.txt
-%make_build
+    mv README.txt README-skins.txt
+    mv Changelog Changelog-skins.txt
+    %make_build
 popd
 
-
 %install
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}
+%make_install PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}
 
-# remove all License docs
+# License docs go to another place
+find %{buildroot}%{_docdir}/%{name}/
 rm -r %{buildroot}%{_docdir}/%{name}/Copying*
 
 pushd smtube-%{smtube_ver}
-make install DESTDIR=%{buildroot} PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}/smtube
+    %make_install PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}/smtube
 popd
 
 pushd smplayer-themes-%{smplayer_themes_ver}
-make install PREFIX=%{_prefix} DESTDIR=%{buildroot}
+    %make_install PREFIX=%{_prefix}
 popd
 
 pushd smplayer-skins-%{smplayer_skins_ver}
-make install PREFIX=%{_prefix} DESTDIR=%{buildroot}
+    %make_install PREFIX=%{_prefix}
 popd
 
-desktop-file-install --delete-original                   \
-        --dir %{buildroot}%{_datadir}/applications/      \
-        %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-
-desktop-file-install --delete-original                   \
-        --dir %{buildroot}%{_datadir}/applications/      \
-        %{buildroot}%{_datadir}/applications/%{name}_enqueue.desktop
-
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}_enqueue.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/smtube.desktop
 
 %post
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-fi
-update-desktop-database &> /dev/null || :
+/usr/bin/update-desktop-database &> /dev/null || :
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+/usr/bin/update-desktop-database &> /dev/null || :
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
-update-desktop-database &> /dev/null || :
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
 %license Copying*
@@ -173,6 +173,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sat Jul 23 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-3
+- Package scriplets review, based on RussianFedora work
+  https://github.com/RussianFedora/smplayer
+
 * Tue Jul 19 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-2
 - Add patch to fix build in rawhide
 
