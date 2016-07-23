@@ -116,7 +116,6 @@ popd
 %make_install PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}
 
 # License docs go to another place
-find %{buildroot}%{_docdir}/%{name}/
 rm -r %{buildroot}%{_docdir}/%{name}/Copying*
 
 pushd smtube-%{smtube_ver}
