@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        16.7.0
+Version:        16.8.0
 %global smtube_ver 16.7.2 
 %global smplayer_themes_ver 16.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -43,6 +43,7 @@ BuildRequires:  pkgconfig(Qt5WebKit)
 # smplayer without mplayer is quite useless
 Requires:       mplayer
 Requires:       hicolor-icon-theme
+Recommends:      smtube
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -56,6 +57,17 @@ for Mplayer filters and more. One of the main features is the ability to
 remember the state of a played file, so when you play it later it will resume
 at the same point and with the same settings. smplayer is developed with
 the Qt toolkit, so it's multi-platform.
+
+%package -n smtube 
+Summary: YouTube browser for SMPlayer
+Group: Applications/Multimedia
+License: GPLv2+
+URL: http://www.smtube.org
+Recommends:  smplayer
+
+%description -n smtube
+This is a YouTube browser for SMPlayer. You can browse, search
+and play YouTube videos.
 
 %package themes
 Summary:  Themes and Skins for SMPlayer
@@ -98,7 +110,7 @@ mv Changelog.utf8 Changelog
 %make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
 
 pushd smtube-%{smtube_ver}
-    sed -i 's|smtube/translations|smplayer/translations|' Makefile
+#    sed -i 's|smtube/translations|smplayer/translations|' Makefile
     %make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
 popd
 
@@ -152,16 +164,22 @@ fi
 %files
 %license Copying*
 %{_bindir}/smplayer
-%{_bindir}/smtube
 %{_datadir}/applications/smplayer*.desktop
-%{_datadir}/applications/smtube.desktop
 %{_datadir}/icons/hicolor/*/apps/smplayer.png
 %{_datadir}/icons/hicolor/*/apps/smplayer.svg
-%{_datadir}/icons/hicolor/*/apps/smtube.png
 %{_datadir}/smplayer/
 %exclude %{_datadir}/smplayer/themes/
 %{_mandir}/man1/smplayer.1.gz
 %{_docdir}/%{name}/
+
+%files -n smtube
+%doc smtube-%{smtube_ver}/Changelog smtube-%{smtube_ver}/Readme.txt
+%doc smtube-%{smtube_ver}/Release_notes.txt
+%license smtube-%{smtube_ver}/Copying.txt
+%{_bindir}/smtube
+%{_datadir}/applications/smtube.desktop
+%{_datadir}/icons/hicolor/*/apps/smtube.png
+%{_datadir}/smtube
 
 %files themes
 %doc smplayer-themes-%{smplayer_themes_ver}/README.txt
@@ -172,6 +190,10 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Mon Aug 08 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-1
+- Update smplayer tp 16.8.0
+- Separate smtube package rfbz #4171
+
 * Sat Jul 23 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-3
 - Package scriplets review, based on RussianFedora work
   https://github.com/RussianFedora/smplayer
