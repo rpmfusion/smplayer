@@ -3,7 +3,7 @@ Version:        16.8.0
 %global smtube_ver 16.7.2 
 %global smplayer_themes_ver 16.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -41,9 +41,9 @@ BuildRequires:  quazip-qt5-devel
 # for smtube only
 BuildRequires:  pkgconfig(Qt5WebKit)
 # smplayer without mplayer is quite useless
-Requires:       mplayer
+Recommends:     mplayer
 Requires:       hicolor-icon-theme
-Recommends:      smtube
+Recommends:     smtube
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -190,6 +190,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Aug 09 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-2
+- Recommends mplayer instead Requires, rfbz #4068
+
 * Mon Aug 08 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-1
 - Update smplayer tp 16.8.0
 - Separate smtube package rfbz #4171
