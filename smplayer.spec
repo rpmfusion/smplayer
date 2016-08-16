@@ -3,7 +3,7 @@ Version:        16.8.0
 %global smtube_ver 16.7.2 
 %global smplayer_themes_ver 16.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -106,12 +106,17 @@ mv Changelog.utf8 Changelog
 %{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-skins-%{smplayer_skins_ver}/themes/Makefile
 
 %build
-#{qmake_qt5} src
-%make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
+pushd src
+    %{qmake_qt5}
+    %make_build V=1 PREFIX=%{_prefix}
+    %{_bindir}/lrelease-qt5 %{name}.pro
+popd
 
-pushd smtube-%{smtube_ver}
+pushd smtube-%{smtube_ver}/src
 #    sed -i 's|smtube/translations|smplayer/translations|' Makefile
-    %make_build QMAKE=%{_qt5_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt5
+    %{qmake_qt5}
+    %make_build V=1 PREFIX=%{_prefix}
+    %{_bindir}/lrelease-qt5 smtube.pro
 popd
 
 pushd smplayer-themes-%{smplayer_themes_ver}
@@ -143,9 +148,7 @@ pushd smplayer-skins-%{smplayer_skins_ver}
 popd
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}_enqueue.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/smtube.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %post
 /usr/bin/update-desktop-database &> /dev/null || :
@@ -167,10 +170,10 @@ fi
 %{_datadir}/applications/smplayer*.desktop
 %{_datadir}/icons/hicolor/*/apps/smplayer.png
 %{_datadir}/icons/hicolor/*/apps/smplayer.svg
-%{_datadir}/smplayer/
+%{_datadir}/smplayer
 %exclude %{_datadir}/smplayer/themes/
-%{_mandir}/man1/smplayer.1.gz
-%{_docdir}/%{name}/
+%{_mandir}/man1/%{name}.1.*
+%{_docdir}/%{name}
 
 %files -n smtube
 %doc smtube-%{smtube_ver}/Changelog smtube-%{smtube_ver}/Readme.txt
@@ -190,6 +193,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Aug 16 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-3
+- More reviews, with Vascom, rfbz #4187, fix cflags in builds
+
 * Tue Aug 09 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-2
 - Recommends mplayer instead Requires, rfbz #4068
 
