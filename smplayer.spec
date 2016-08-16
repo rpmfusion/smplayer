@@ -3,7 +3,7 @@ Version:        16.8.0
 %global smtube_ver 16.7.2 
 %global smplayer_themes_ver 16.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -108,14 +108,17 @@ mv Changelog.utf8 Changelog
 %build
 pushd src
     %{qmake_qt5}
-    %make_build V=1 PREFIX=%{_prefix}
+    %make_build DATA_PATH=\\\"%{_datadir}/%{name}\\\" \
+        TRANSLATION_PATH=\\\"%{_datadir}/%{name}/translations\\\" \
+        DOC_PATH=\\\"%{_docdir}/%{name}\\\" \
+        THEMES_PATH=\\\"%{_datadir}/%{name}/themes\\\" \
+        SHORTCUTS_PATH=\\\"%{_datadir}/%{name}/shortcuts\\\"
     %{_bindir}/lrelease-qt5 %{name}.pro
 popd
 
 pushd smtube-%{smtube_ver}/src
-#    sed -i 's|smtube/translations|smplayer/translations|' Makefile
     %{qmake_qt5}
-    %make_build V=1 PREFIX=%{_prefix}
+    %make_build TRANSLATION_PATH=\\\"%{_datadir}/smtube/translations\\\"
     %{_bindir}/lrelease-qt5 smtube.pro
 popd
 
@@ -193,6 +196,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Aug 16 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-4
+- Fix translation.
+
 * Tue Aug 16 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-3
 - More reviews, with Vascom, rfbz #4187, fix cflags in builds
 
