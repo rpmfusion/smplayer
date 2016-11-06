@@ -1,6 +1,6 @@
 Name:           smplayer
 Version:        16.11.0
-%global smtube_ver 16.7.2 
+%global smtube_ver 16.7.2
 %global smplayer_themes_ver 16.8.0
 %global smplayer_skins_ver 15.2.0
 Release:        1%{?dist}
@@ -58,7 +58,7 @@ remember the state of a played file, so when you play it later it will resume
 at the same point and with the same settings. smplayer is developed with
 the Qt toolkit, so it's multi-platform.
 
-%package -n smtube 
+%package -n smtube
 Summary: YouTube browser for SMPlayer
 Group: Applications/Multimedia
 License: GPLv2+
@@ -97,8 +97,8 @@ popd
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
-# fix files which are not UTF-8 
-iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog 
+# fix files which are not UTF-8
+iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog
 mv Changelog.utf8 Changelog
 
 # change rcc binary
