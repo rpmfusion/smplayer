@@ -3,7 +3,7 @@ Version:        16.11.0
 %global smtube_ver 16.7.2
 %global smplayer_themes_ver 16.8.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -196,11 +196,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
-* Sun Nov 06 2016 Sérgio Basto <sergio@serjux.com> - 16.11.0-2
-- Weak deps is not working in RPMFusion packages
-
 * Sun Nov 06 2016 Sérgio Basto <sergio@serjux.com> - 16.11.0-1
 - Update smplayer to 16.11.0 and themes to 16.8.0
+- Weak deps is not working in RPMFusion packages
 
 * Sat Nov 05 2016 Leigh Scott <leigh123linux@googlemail.com> - 16.9.0-2
 - Add requires mplayer-backend (rfbz#4284)
