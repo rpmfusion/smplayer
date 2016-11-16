@@ -3,7 +3,7 @@ Version:        16.11.0
 %global smtube_ver 16.7.2
 %global smplayer_themes_ver 16.8.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -43,7 +43,7 @@ BuildRequires:  pkgconfig(Qt5WebKit)
 # smplayer without mplayer is quite useless
 Requires:       mplayer-backend
 Requires:       hicolor-icon-theme
-Requires:       smtube
+Recommends:     smtube
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -63,7 +63,7 @@ Summary: YouTube browser for SMPlayer
 Group: Applications/Multimedia
 License: GPLv2+
 URL: http://www.smtube.org
-Requires:  smplayer
+Recommends:  smplayer
 
 %description -n smtube
 This is a YouTube browser for SMPlayer. You can browse, search
@@ -196,6 +196,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Wed Nov 16 2016 Sérgio Basto <sergio@serjux.com> - 16.11.0-2
+- Test weak_deps on RPM Fusion
+
 * Sun Nov 06 2016 Sérgio Basto <sergio@serjux.com> - 16.11.0-1
 - Update smplayer to 16.11.0 and themes to 16.8.0
 - Weak deps is not working in RPMFusion packages
