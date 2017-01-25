@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        16.11.0
+Version:        17.1.0
 %global smtube_ver 16.7.2
 %global smplayer_themes_ver 16.8.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
@@ -18,7 +18,6 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
-Patch4:         smplayer-16.7.0-removeqt43code.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(Qt5)
@@ -43,7 +42,10 @@ BuildRequires:  pkgconfig(Qt5WebKit)
 # smplayer without mplayer is quite useless
 Requires:       mplayer-backend
 Requires:       hicolor-icon-theme
+%if 0%{fedora}
 Recommends:     smtube
+Recommends:     mplayer
+%endif
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -63,7 +65,9 @@ Summary: YouTube browser for SMPlayer
 Group: Applications/Multimedia
 License: GPLv2+
 URL: http://www.smtube.org
+%if 0%{fedora}
 Recommends:  smplayer
+%endif
 
 %description -n smtube
 This is a YouTube browser for SMPlayer. You can browse, search
@@ -93,7 +97,6 @@ pushd smtube-%{smtube_ver}
 # correction for wrong-file-end-of-line-encoding on smtube
 %{__sed} -i 's/\r//' *.txt
 popd
-%patch4 -p1 -b .qt43
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -196,6 +199,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Jan 24 2017 Sérgio Basto <sergio@serjux.com> - 17.1.0-1
+- Update smplayer to 17.1.0
+
 * Wed Nov 16 2016 Sérgio Basto <sergio@serjux.com> - 16.11.0-2
 - Test weak_deps on RPM Fusion
 
