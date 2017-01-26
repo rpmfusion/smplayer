@@ -3,8 +3,8 @@ Version:        17.1.0
 %global smtube_ver 16.7.2
 %global smplayer_themes_ver 16.8.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
-Summary:        A graphical frontend for mplayer
+Release:        2%{?dist}
+Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
 License:        GPLv2+
@@ -20,7 +20,9 @@ Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(Qt5)
+BuildRequires:  pkgconfig(Qt5Designer)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5DBus)
@@ -28,23 +30,21 @@ BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5PrintSupport)
 BuildRequires:  pkgconfig(Qt5Script)
-BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(Qt5Designer)
-BuildRequires:  pkgconfig(zlib)
-BuildRequires:  qt5-linguist
+# for unbundle sources
 BuildRequires:  qtsingleapplication-qt5-devel
-BuildRequires:  quazip-qt5-devel
+BuildRequires:  pkgconfig(zlib)
 # for smtube only
 BuildRequires:  pkgconfig(Qt5WebKit)
 # smplayer without mplayer is quite useless
-Requires:       mplayer-backend
 Requires:       hicolor-icon-theme
-%if 0%{fedora}
+%if 0%{?fedora}
 Recommends:     smtube
 Recommends:     mplayer
+Requires:       mplayer-backend
 %endif
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
@@ -53,19 +53,21 @@ Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 
 %description
-smplayer intends to be a complete front-end for Mplayer, from basic features
-like playing videos, DVDs, and VCDs to more advanced features like support
-for Mplayer filters and more. One of the main features is the ability to
-remember the state of a played file, so when you play it later it will resume
-at the same point and with the same settings. smplayer is developed with
-the Qt toolkit, so it's multi-platform.
+SMPlayer is a graphical user interface (GUI) for the award-winning mplayer
+and also for mpv. But apart from providing access for the most common
+and useful options of mplayer and mpv, SMPlayer adds other interesting features
+like the possibility to play Youtube videos or search and download subtitles.
+One of the main features is the ability to remember the state of a
+played file, so when you play it later it will be resumed at the same point
+and with the same settings.
+SMPlayer is developed with the Qt toolkit, so it's multi-platform.
 
 %package -n smtube
 Summary: YouTube browser for SMPlayer
 Group: Applications/Multimedia
 License: GPLv2+
 URL: http://www.smtube.org
-%if 0%{fedora}
+%if 0%{?fedora}
 Recommends:  smplayer
 %endif
 
@@ -199,6 +201,11 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Jan 26 2017 Sérgio Basto <sergio@serjux.com> - 17.1.0-2
+- el7 support
+- Some syncs with upstream spec, quazip-qt5-devel is not
+  needed anymore.
+
 * Tue Jan 24 2017 Sérgio Basto <sergio@serjux.com> - 17.1.0-1
 - Update smplayer to 17.1.0
 
