@@ -1,33 +1,56 @@
-%global smtube_ver 14.8.0
-
 Name:           smplayer
-Version:        14.9.0
+Version:        17.1.0
+%global smtube_ver 16.7.2
+%global smplayer_themes_ver 16.8.0
+%global smplayer_skins_ver 15.2.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer
 
 Group:          Applications/Multimedia
 License:        GPLv2+
-URL:            http://smplayer.sourceforge.net/linux/
+URL:            http://smplayer.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
-# Add a servicemenu to enqeue files in smplayer's playlist. 
-# see also: 
-# https://sourceforge.net/tracker/?func=detail&atid=913576&aid=2052905&group_id=185512
-Source1:        smplayer_enqueue_kde4.desktop
-Source3:        http://downloads.sourceforge.net/smplayer/smtube-%{smtube_ver}.tar.bz2
+Source2:        http://downloads.sourceforge.net/smtube/smtube-%{smtube_ver}.tar.bz2
+Source3:        http://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
+Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
-Patch2:         smplayer-0.8.5-system-qtsingleapplication.patch
-Patch3:         smtube-2.1-system-qtsingleapplication.patch
+Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
+Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
-BuildRequires:  qt4-devel
-BuildRequires:  quazip-devel
-BuildRequires:  qtsingleapplication-devel
+BuildRequires:  pkgconfig(Qt5)
+BuildRequires:  pkgconfig(Qt5Concurrent)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
+BuildRequires:  pkgconfig(Qt5Script)
+BuildRequires:  pkgconfig(Qt5WebKitWidgets)
+BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  pkgconfig(Qt5Designer)
+BuildRequires:  pkgconfig(zlib)
+BuildRequires:  qt5-linguist
+BuildRequires:  qtsingleapplication-qt5-devel
+BuildRequires:  quazip-qt5-devel
+# for smtube only
+BuildRequires:  pkgconfig(Qt5WebKit)
 # smplayer without mplayer is quite useless
-Requires:       mplayer
-Requires:       kde-filesystem
-%{?_qt4_version:Requires: qt4%{?_isa} >= %{_qt4_version}}
+Requires:       mplayer-backend
+Requires:       hicolor-icon-theme
+%if 0%{fedora}
+Recommends:     smtube
+Recommends:     mplayer
+%endif
+
+%{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
+
+Requires(post): desktop-file-utils
+Requires(postun): desktop-file-utils
 
 %description
 smplayer intends to be a complete front-end for Mplayer, from basic features
@@ -37,99 +60,230 @@ remember the state of a played file, so when you play it later it will resume
 at the same point and with the same settings. smplayer is developed with
 the Qt toolkit, so it's multi-platform.
 
+%package -n smtube
+Summary: YouTube browser for SMPlayer
+Group: Applications/Multimedia
+License: GPLv2+
+URL: http://www.smtube.org
+%if 0%{fedora}
+Recommends:  smplayer
+%endif
+
+%description -n smtube
+This is a YouTube browser for SMPlayer. You can browse, search
+and play YouTube videos.
+
+%package themes
+Summary:  Themes and Skins for SMPlayer
+Group:    Video/Players
+Requires: smplayer
+
+%description themes
+A set of themes for SMPlayer and a set of skins for SMPlayer.
+
 %prep
-%setup -a3 -qn %{name}-%{version}
-#remove some bundle sources 
+%setup -qa2 -qa3 -qa4 -qn %{name}-%{version}
+#remove some bundle sources
 rm -rf zlib
 rm -rf src/qtsingleapplication/
 rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
-#TODO unbundle libmaia 
+#TODO unbundle libmaia
 #rm -rf src/findsubtitles/libmaia
 
 %patch0 -p0 -b .desktop-files
 %patch2 -p1 -b .qtsingleapplication
 pushd smtube-%{smtube_ver}
 %patch3 -p1 -b .qtsingleapplication
+# correction for wrong-file-end-of-line-encoding on smtube
+%{__sed} -i 's/\r//' *.txt
 popd
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
-# fix files which are not UTF-8 
-iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog 
+# fix files which are not UTF-8
+iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog
 mv Changelog.utf8 Changelog
 
-# fix path of docs
-sed -i 's|DOC_PATH=$(PREFIX)/share/doc/packages/smplayer|DOC_PATH=$(PREFIX)/share/doc/smplayer-%{version}|' Makefile
-
-# use %{?_smp_mflags}
-sed -i '/cd src && $(QMAKE) $(QMAKE_OPTS) && $(DEFS) make/s!$! %{?_smp_mflags}!' Makefile
-
-# don't show smplayer_enqueue.desktop in KDE and use servicemenus instead
-echo "NotShowIn=KDE;" >> smplayer_enqueue.desktop
+# change rcc binary
+%{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-themes-%{smplayer_themes_ver}/themes/Makefile
+%{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-skins-%{smplayer_skins_ver}/themes/Makefile
 
 %build
-make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt4
-
-pushd smtube-%{smtube_ver}
-sed -i 's|/usr/local|%{_prefix}|' Makefile
-sed -i 's|doc/smtube|doc/%{name}-%{version}/smtube|' Makefile
-sed -i 's|smtube/translations|smplayer/translations|' Makefile
-make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} LRELEASE=%{_bindir}/lrelease-qt4
+pushd src
+    %{qmake_qt5}
+    %make_build DATA_PATH=\\\"%{_datadir}/%{name}\\\" \
+        TRANSLATION_PATH=\\\"%{_datadir}/%{name}/translations\\\" \
+        DOC_PATH=\\\"%{_docdir}/%{name}\\\" \
+        THEMES_PATH=\\\"%{_datadir}/%{name}/themes\\\" \
+        SHORTCUTS_PATH=\\\"%{_datadir}/%{name}/shortcuts\\\"
+    %{_bindir}/lrelease-qt5 %{name}.pro
 popd
 
+pushd smtube-%{smtube_ver}/src
+    %{qmake_qt5}
+    %make_build TRANSLATION_PATH=\\\"%{_datadir}/smtube/translations\\\"
+    %{_bindir}/lrelease-qt5 smtube.pro
+popd
+
+pushd smplayer-themes-%{smplayer_themes_ver}
+    %make_build
+popd
+
+pushd smplayer-skins-%{smplayer_skins_ver}
+    mv README.txt README-skins.txt
+    mv Changelog Changelog-skins.txt
+    %make_build
+popd
 
 %install
-make QMAKE=%{_qt4_qmake} PREFIX=%{_prefix} DESTDIR=%{buildroot}/ install
+%make_install PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}
+
+# License docs go to another place
+rm -r %{buildroot}%{_docdir}/%{name}/Copying*
+
 pushd smtube-%{smtube_ver}
-make install DESTDIR=%{buildroot}
+    %make_install PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}/smtube
 popd
 
-desktop-file-install --delete-original                   \
-        --vendor "rpmfusion"                             \
-        --dir %{buildroot}%{_datadir}/applications/      \
-        %{buildroot}%{_datadir}/applications/%{name}.desktop
+pushd smplayer-themes-%{smplayer_themes_ver}
+    %make_install PREFIX=%{_prefix}
+popd
 
+pushd smplayer-skins-%{smplayer_skins_ver}
+    %make_install PREFIX=%{_prefix}
+popd
 
-desktop-file-install --delete-original                   \
-        --vendor "rpmfusion"                             \
-        --dir %{buildroot}%{_datadir}/applications/      \
-        %{buildroot}%{_datadir}/applications/%{name}_enqueue.desktop
-
-desktop-file-validate %{buildroot}%{_datadir}/applications/smtube.desktop
-
-# Add servicemenus dependend on the version of KDE:
-# https://sourceforge.net/tracker/index.php?func=detail&aid=2052905&group_id=185512&atid=913576
-install -Dpm 0644 %{SOURCE1} %{buildroot}%{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %post
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-fi
-update-desktop-database &> /dev/null || :
+/usr/bin/update-desktop-database &> /dev/null || :
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-  %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+/usr/bin/update-desktop-database &> /dev/null || :
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
-update-desktop-database &> /dev/null || :
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
-%{_docdir}/%{name}-%{version}/
+%license Copying*
 %{_bindir}/smplayer
-%{_bindir}/smtube
-%{_datadir}/applications/rpmfusion-smplayer*.desktop
-%{_datadir}/applications/smtube.desktop
+%{_datadir}/applications/smplayer*.desktop
 %{_datadir}/icons/hicolor/*/apps/smplayer.png
 %{_datadir}/icons/hicolor/*/apps/smplayer.svg
+%{_datadir}/smplayer
+%exclude %{_datadir}/smplayer/themes/
+%{_mandir}/man1/%{name}.1.*
+%{_docdir}/%{name}
+
+%files -n smtube
+%doc smtube-%{smtube_ver}/Changelog smtube-%{smtube_ver}/Readme.txt
+%doc smtube-%{smtube_ver}/Release_notes.txt
+%license smtube-%{smtube_ver}/Copying.txt
+%{_bindir}/smtube
+%{_datadir}/applications/smtube.desktop
 %{_datadir}/icons/hicolor/*/apps/smtube.png
-%{_datadir}/smplayer/
-%{_mandir}/man1/smplayer.1.gz
-%dir %{_datadir}/kde4/services/ServiceMenus/
-%{_datadir}/kde4/services/ServiceMenus/smplayer_enqueue.desktop
+%{_datadir}/smtube
+
+%files themes
+%doc smplayer-themes-%{smplayer_themes_ver}/README.txt
+%doc smplayer-themes-%{smplayer_themes_ver}/Changelog
+%doc smplayer-skins-%{smplayer_skins_ver}/README-skins.txt
+%doc smplayer-skins-%{smplayer_skins_ver}/Changelog-skins.txt
+%license smplayer-themes-%{smplayer_themes_ver}/COPYING*
+%{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Jan 24 2017 Sérgio Basto <sergio@serjux.com> - 17.1.0-1
+- Update smplayer to 17.1.0
+
+* Wed Nov 16 2016 Sérgio Basto <sergio@serjux.com> - 16.11.0-2
+- Test weak_deps on RPM Fusion
+
+* Sun Nov 06 2016 Sérgio Basto <sergio@serjux.com> - 16.11.0-1
+- Update smplayer to 16.11.0 and themes to 16.8.0
+- Weak deps is not working in RPMFusion packages
+
+* Sat Nov 05 2016 Leigh Scott <leigh123linux@googlemail.com> - 16.9.0-2
+- Add requires mplayer-backend (rfbz#4284)
+
+* Sat Sep 10 2016 Sérgio Basto <sergio@serjux.com> - 16.9.0-1
+- Update smplayer tp 16.9.0
+
+* Tue Aug 16 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-4
+- Fix translation.
+
+* Tue Aug 16 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-3
+- More reviews, with Vascom, rfbz #4187, fix cflags in builds
+
+* Tue Aug 09 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-2
+- Recommends mplayer instead Requires, rfbz #4068
+
+* Mon Aug 08 2016 Sérgio Basto <sergio@serjux.com> - 16.8.0-1
+- Update smplayer tp 16.8.0
+- Separate smtube package rfbz #4171
+
+* Sat Jul 23 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-3
+- Package scriplets review, based on RussianFedora work
+  https://github.com/RussianFedora/smplayer
+
+* Tue Jul 19 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-2
+- Add patch to fix build in rawhide
+
+* Sun Jul 17 2016 Sérgio Basto <sergio@serjux.com> - 16.7.0-1
+- Update smplayer to 16.7.0 and smtube to 16.7.2
+- Install smplayer-themes and smplayer-skins
+- Few more cleanup, especially in docs and licenses.
+
+* Sun Jul 17 2016 Sérgio Basto <sergio@serjux.com> - 16.6.0-2
+- Switch builds to Qt5
+- Do not apply a vendor tag to .desktop files (using --vendor).
+- Drop old smplayer_enqueue.desktop
+
+* Wed Jun 22 2016 Sérgio Basto <sergio@serjux.com> - 16.6.0-1
+- Update to 16.6.0
+
+* Fri Apr 01 2016 Sérgio Basto <sergio@serjux.com> - 16.4.0-1
+- Update to 16.4.0
+
+* Sun Jan 17 2016 Sérgio Basto <sergio@serjux.com> - 16.1.0-1
+- Update 16.1.0
+
+* Sun Dec 06 2015 Sérgio Basto <sergio@serjux.com> - 15.11.0-1
+- Update smplayer and smtube 15.11.0
+
+* Fri Oct 02 2015 Sérgio Basto <sergio@serjux.com> - 15.9.0-1
+- Update smplayer to 15.9.0 and smtube to 15.9.0 .
+
+* Thu Aug 20 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6994-2
+- Update smtube to 15.8.0 .
+- Removed version of package from _docdir directory (following the guidelines).
+
+* Wed Jun 17 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6994-1
+- Update to 4.9.0.6994 .
+- Drop smplayer-14.9.0-get_svn_revision.patch .
+
+* Mon Jun 08 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6966-3
+- Added smplayer-14.9.0-get_svn_revision.patch, I think is better have a
+  hardcore version than (svn r0UNKNOWN)
+
+* Sun Jun 07 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6966-2
+- Update to smtube-15.5.17
+
+* Sat Jun 06 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6966-1
+- Update to smplayer-14.9.0.6966 and smtube-15.5.10
+- Fix warning "The desktop entry file "ServiceMenus/smplayer_enqueue.desktop
+  has an empty mimetype! " .
+- Rebase patches 2 and 3 .
+
+* Wed Mar 25 2015 Sérgio Basto <sergio@serjux.com> - 14.9.0.6690-1
+- Update smplayer to smplayer-14.9.0.6690 and smtube to smtube-15.1.26
+
 * Mon Sep 15 2014 Sérgio Basto <sergio@serjux.com> - 14.9.0-1
 - New upstream releases smplayer 14.9.0 and smtube 14.8.0
 - Rebase patches 1 and 3 .
