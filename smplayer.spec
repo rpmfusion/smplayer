@@ -3,7 +3,7 @@ Version:        17.2.0
 %global smtube_ver 17.1.0
 %global smplayer_themes_ver 16.8.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -39,12 +39,15 @@ BuildRequires:  qtsingleapplication-qt5-devel
 BuildRequires:  pkgconfig(zlib)
 # for smtube only
 BuildRequires:  pkgconfig(Qt5WebKit)
-# smplayer without mplayer is quite useless
 Requires:       hicolor-icon-theme
+# smplayer without mplayer is quite useless
 %if 0%{?fedora}
 Recommends:     smtube
 Recommends:     mplayer
 Requires:       mplayer-backend
+%endif
+%if 0%{?rhel}
+Requires:       mplayer
 %endif
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
@@ -68,7 +71,10 @@ Group: Applications/Multimedia
 License: GPLv2+
 URL: http://www.smtube.org
 %if 0%{?fedora}
-Recommends:  smplayer
+Recommends:     smplayer
+%endif
+%if 0%{?rhel}
+Requires:       smplayer
 %endif
 
 %description -n smtube
@@ -84,7 +90,7 @@ Requires: smplayer
 A set of themes for SMPlayer and a set of skins for SMPlayer.
 
 %prep
-%setup -qa2 -qa3 -qa4 -qn %{name}-%{version}
+%setup -q -a2 -a3 -a4
 #remove some bundle sources
 rm -rf zlib
 rm -rf src/qtsingleapplication/
@@ -202,6 +208,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Fri Feb 03 2017 Sérgio Basto <sergio@serjux.com> - 17.2.0-2
+- Better read %setup options and better rhel requires
+
 * Fri Feb 03 2017 Sérgio Basto <sergio@serjux.com> - 17.2.0-1
 - Update smplayer to 17.2.0 and smtube to 17.1.0
 
