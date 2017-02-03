@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        17.1.0
-%global smtube_ver 16.7.2
+Version:        17.2.0
+%global smtube_ver 17.1.0
 %global smplayer_themes_ver 16.8.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -175,6 +175,7 @@ fi
 %files
 %license Copying*
 %{_bindir}/smplayer
+%{_bindir}/simple_web_server
 %{_datadir}/applications/smplayer*.desktop
 %{_datadir}/icons/hicolor/*/apps/smplayer.png
 %{_datadir}/icons/hicolor/*/apps/smplayer.svg
@@ -201,6 +202,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Fri Feb 03 2017 Sérgio Basto <sergio@serjux.com> - 17.2.0-1
+- Update smplayer to 17.2.0 and smtube to 17.1.0
+
 * Thu Jan 26 2017 Sérgio Basto <sergio@serjux.com> - 17.1.0-2
 - el7 support
 - Some syncs with upstream spec, quazip-qt5-devel is not
