@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        17.3.0
+Version:        17.4.0
 %global smtube_ver 17.1.0
-%global smplayer_themes_ver 17.2.0
+%global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -208,6 +208,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Apr 06 2017 Sérgio Basto <sergio@serjux.com> - 17.4.0-1
+- Update smplayer to 17.4.0
+
 * Mon Mar 20 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 17.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
