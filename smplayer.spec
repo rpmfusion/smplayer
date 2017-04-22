@@ -1,5 +1,5 @@
 Name:           smplayer
-Version:        17.4.0
+Version:        17.4.2
 %global smtube_ver 17.1.0
 %global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
@@ -208,6 +208,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sat Apr 22 2017 Sérgio Basto <sergio@serjux.com> - 17.4.2-1
+- Update smplayer to 17.4.2
+
 * Thu Apr 06 2017 Sérgio Basto <sergio@serjux.com> - 17.4.0-1
 - Update smplayer to 17.4.0
 
