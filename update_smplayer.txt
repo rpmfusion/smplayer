@@ -1,0 +1,19 @@
+version=17.11.0
+stube_ver=17.5.0
+themes_ver=17.3.0
+skins_ver=15.2.0
+
+git pull && rpmdev-bumpspec -n $version -c "Update smplayer to $version" smplayer.spec
+spectool -g smplayer.spec
+rfpkg new-sources ./smplayer-$version.tar.bz2 ./smtube-$stube_ver.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
+rfpkg clog && rfpkg commit -F clog && /bin/rm clog && git show
+read -n1 -r -p "Press anykey to continue..." key
+rfpkg push && rfpkg build --nowait
+read -n1 -r -p "Press anykey to continue..." key
+git checkout f27 && git merge master && git push && rfpkg build --nowait; git checkout master
+read -n1 -r -p "Press anykey to continue..." key
+git checkout f26 && git merge master && git push && rfpkg build --nowait; git checkout master
+read -n1 -r -p "Press anykey to continue..." key
+git checkout f25 && git merge master && git push && rfpkg build --nowait; git checkout master
+read -n1 -r -p "Press anykey to continue..." key
+git checkout el7 && git merge master && git push && rfpkg build --nowait; git checkout master
