@@ -13,7 +13,7 @@ read -n1 -r -p "Press anykey to continue..." key
 git checkout f27 && git merge master && git push && rfpkg build --nowait; git checkout master
 read -n1 -r -p "Press anykey to continue..." key
 git checkout f26 && git merge master && git push && rfpkg build --nowait; git checkout master
-read -n1 -r -p "Press anykey to continue..." key
-git checkout f25 && git merge master && git push && rfpkg build --nowait; git checkout master
+#read -n1 -r -p "Press anykey to continue..." key
+#git checkout f25 && git merge master && git push && rfpkg build --nowait; git checkout master
 read -n1 -r -p "Press anykey to continue..." key
 git checkout el7 && git merge master && git push && rfpkg build --nowait; git checkout master
