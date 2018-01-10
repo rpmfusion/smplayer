@@ -7,13 +7,13 @@ git pull && rpmdev-bumpspec -n $version -c "Update smplayer to $version" smplaye
 spectool -g smplayer.spec
 rfpkg new-sources ./smplayer-$version.tar.bz2 ./smtube-$stube_ver.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
 rfpkg clog && rfpkg commit -F clog && /bin/rm clog && git show
-read -n1 -r -p "Press anykey to continue..." key
+echo Press enter to continue; read dummy;
 rfpkg push && rfpkg build --nowait
-read -n1 -r -p "Press anykey to continue..." key
+echo Press enter to continue; read dummy;
 git checkout f27 && git merge master && git push && rfpkg build --nowait; git checkout master
-read -n1 -r -p "Press anykey to continue..." key
+echo Press enter to continue; read dummy;
 git checkout f26 && git merge master && git push && rfpkg build --nowait; git checkout master
-#read -n1 -r -p "Press anykey to continue..." key
+#echo Press enter to continue; read dummy;
 #git checkout f25 && git merge master && git push && rfpkg build --nowait; git checkout master
-read -n1 -r -p "Press anykey to continue..." key
+echo Press enter to continue; read dummy;
 git checkout el7 && git merge master && git push && rfpkg build --nowait; git checkout master
