@@ -98,7 +98,7 @@ rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 #TODO unbundle libmaia
 #rm -rf src/findsubtitles/libmaia
 
-%patch0 -p0 -b .desktop-files
+%patch0 -p1 -b .desktop-files
 %patch2 -p1 -b .qtsingleapplication
 pushd smtube-%{smtube_ver}
 %patch3 -p1 -b .qtsingleapplication

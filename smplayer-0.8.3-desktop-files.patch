@@ -1,5 +1,5 @@
---- smplayer.desktop.orig	2014-09-15 01:28:46.737576061 +0100
-+++ smplayer.desktop	2014-09-15 01:29:35.366085247 +0100
+--- ./smplayer.desktop.orig	2017-12-25 23:26:46.000000000 +0000
++++ ./smplayer.desktop	2018-01-10 00:37:31.198919686 +0000
 @@ -1,7 +1,7 @@
  [Desktop Entry]
  Categories=Qt;KDE;AudioVideo;Player;Video;
@@ -8,14 +8,4 @@
 +Exec=smplayer %f
  GenericName=Media Player
  Icon=smplayer
- MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;audio/aac;audio/flac;audio/ogg;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;video/webm;
---- smplayer_enqueue.desktop.orig	2014-04-04 03:44:38.995597930 +0100
-+++ smplayer_enqueue.desktop	2014-04-04 03:45:22.581104551 +0100
-@@ -1,6 +1,6 @@
- [Desktop Entry]
- Categories=Qt;KDE;AudioVideo;Player;Video;
--Exec=smplayer -add-to-playlist %U
-+Exec=smplayer -add-to-playlist %F
- Icon=smplayer
- MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;audio/aac;audio/flac;audio/ogg;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm;video/x-theora;video/webm;
- Name=Enqueue in SMPlayer
+ MimeType=audio/ac3;audio/mp4;audio/mpeg;audio/vnd.rn-realaudio;audio/vorbis;audio/x-adpcm;audio/x-matroska;audio/x-mp2;audio/x-mp3;audio/x-ms-wma;audio/x-vorbis;audio/x-wav;audio/mpegurl;audio/x-mpegurl;audio/x-pn-realaudio;audio/x-scpls;audio/aac;audio/flac;audio/ogg;video/avi;video/mp4;video/flv;video/mpeg;video/quicktime;video/vnd.rn-realvideo;video/x-matroska;video/x-ms-asf;video/x-msvideo;video/x-ms-wmv;video/x-ogm+ogg;video/x-theora;video/webm;
