@@ -1,12 +1,12 @@
-version=18.1.0
-stube_ver=17.5.0
+version=18.2.0
+stube_ver=18.1.0
 themes_ver=17.3.0
 skins_ver=15.2.0
 
 git pull && rpmdev-bumpspec -n $version -c "Update smplayer to $version" smplayer.spec
 spectool -g smplayer.spec
 rfpkg new-sources ./smplayer-$version.tar.bz2 ./smtube-$stube_ver.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
-rfpkg clog && rfpkg commit -F clog && /bin/rm clog && git show
+rfpkg ci -c && git show
 echo Press enter to continue; read dummy;
 rfpkg push && rfpkg build --nowait
 echo Press enter to continue; read dummy;
