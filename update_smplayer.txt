@@ -3,7 +3,13 @@ stube_ver=18.1.0
 themes_ver=17.3.0
 skins_ver=15.2.0
 
-git pull && rpmdev-bumpspec -n $version -c "Update smplayer to $version" smplayer.spec
+git pull
+
+sed -i "s|^%define vers_string .*|%define vers_string $newdescrib|" mythtv.spec
+sed -i "s|^%define rel_string .*|%define rel_string $relversion|" mythtv.spec
+sed -i "s|^%define githash .*|%define githash $githash|" mythtv.spec
+
+rpmdev-bumpspec -n $version -c "Update smplayer to $version" smplayer.spec
 spectool -g smplayer.spec
 rfpkg new-sources ./smplayer-$version.tar.bz2 ./smtube-$stube_ver.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
 rfpkg ci -c && git show
