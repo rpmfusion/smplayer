@@ -1,13 +1,13 @@
-version=18.2.0
+version=18.2.2
 stube_ver=18.1.0
 themes_ver=17.3.0
 skins_ver=15.2.0
 
 git pull
 
-sed -i "s|^%define vers_string .*|%define vers_string $newdescrib|" mythtv.spec
-sed -i "s|^%define rel_string .*|%define rel_string $relversion|" mythtv.spec
-sed -i "s|^%define githash .*|%define githash $githash|" mythtv.spec
+sed -i "s|^%global smtube_ver .*|%global smtube_ver $stube_ver|" smplayer.spec
+sed -i "s|^%global smplayer_themes_ver .*|%global smplayer_themes_ver $themes_ver|" smplayer.spec
+sed -i "s|^%global smplayer_skins_ver .*|%global smplayer_skins_ver $skins_ver|" smplayer.spec
 
 rpmdev-bumpspec -n $version -c "Update smplayer to $version" smplayer.spec
 spectool -g smplayer.spec
