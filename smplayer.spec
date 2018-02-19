@@ -3,7 +3,7 @@ Version:        18.2.2
 %global smtube_ver 18.1.0
 %global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -18,6 +18,7 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
+Patch4:         webserver.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -105,6 +106,7 @@ pushd smtube-%{smtube_ver}
 # correction for wrong-file-end-of-line-encoding on smtube
 %{__sed} -i 's/\r//' *.txt
 popd
+%patch4 -p1 -b .webserver
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -208,6 +210,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Mon Feb 19 2018 Sérgio Basto <sergio@serjux.com> - 18.2.2-2
+- Mute GCC 8 warnings
+
 * Sun Feb 18 2018 Sérgio Basto <sergio@serjux.com> - 18.2.2-1
 - Update smplayer to 18.2.2
 
