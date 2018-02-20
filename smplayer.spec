@@ -3,7 +3,7 @@ Version:        18.2.2
 %global smtube_ver 18.1.0
 %global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -42,12 +42,11 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(Qt5WebKit)
 Requires:       hicolor-icon-theme
 # smplayer without mplayer is quite useless
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     smtube
-Recommends:     mplayer
 Requires:       mplayer-backend
-%endif
-%if 0%{?rhel}
+Suggests:       mplayer
+%else
 Requires:       mplayer
 %endif
 
@@ -71,10 +70,9 @@ Summary: YouTube browser for SMPlayer
 Group: Applications/Multimedia
 License: GPLv2+
 URL: http://www.smtube.org
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     smplayer
-%endif
-%if 0%{?rhel}
+%else
 Requires:       smplayer
 %endif
 
@@ -144,6 +142,10 @@ pushd smplayer-skins-%{smplayer_skins_ver}
     mv Changelog Changelog-skins.txt
     %make_build
 popd
+pushd webserver
+export CFLAGS_EXTRA="%{__global_compiler_flags}"
+%make_build
+popd
 
 %install
 %make_install PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}
@@ -210,6 +212,11 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Feb 20 2018 Sérgio Basto <sergio@serjux.com> - 18.2.2-3
+- Fix one GCC 8 warning
+- Build simple_web_server with rpm CFLAGS
+- Better ifdefs scriptlets
+
 * Mon Feb 19 2018 Sérgio Basto <sergio@serjux.com> - 18.2.2-2
 - Mute GCC 8 warnings
 
