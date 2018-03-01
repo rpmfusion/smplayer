@@ -3,7 +3,7 @@ Version:        18.2.2
 %global smtube_ver 18.1.0
 %global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -212,6 +212,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 18.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Tue Feb 20 2018 Sérgio Basto <sergio@serjux.com> - 18.2.2-3
 - Fix one GCC 8 warning
 - Build simple_web_server with rpm CFLAGS
