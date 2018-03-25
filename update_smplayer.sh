@@ -16,10 +16,10 @@ rfpkg ci -c && git show
 echo Press enter to continue; read dummy;
 rfpkg push && rfpkg build --nowait
 echo Press enter to continue; read dummy;
+git checkout f28 && git merge master && git push && rfpkg build --nowait; git checkout master
+echo Press enter to continue; read dummy;
 git checkout f27 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;
 git checkout f26 && git merge master && git push && rfpkg build --nowait; git checkout master
-#echo Press enter to continue; read dummy;
-#git checkout f25 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;
 git checkout el7 && git merge master && git push && rfpkg build --nowait; git checkout master
