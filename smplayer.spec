@@ -3,7 +3,7 @@ Version:        18.3.0
 %global smtube_ver 18.1.0
 %global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -49,6 +49,7 @@ Suggests:       mplayer
 %else
 Requires:       mplayer
 %endif
+Provides:       bundled(mongoose) = 6.6
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -143,7 +144,7 @@ pushd smplayer-skins-%{smplayer_skins_ver}
     %make_build
 popd
 pushd webserver
-export CFLAGS_EXTRA="%{__global_compiler_flags}"
+export CFLAGS_EXTRA="%{optflags}"
 %make_build
 popd
 
@@ -212,6 +213,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Mon Mar 26 2018 Sérgio Basto <sergio@serjux.com> - 18.3.0-2
+- Fix for epel-7 and announce bundle of mongoose
+
 * Sun Mar 25 2018 Sérgio Basto <sergio@serjux.com> - 18.3.0-1
 - Update smplayer to 18.3.0
 
