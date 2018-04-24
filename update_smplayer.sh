@@ -1,5 +1,5 @@
-version=18.3.0
-stube_ver=18.1.0
+version=18.4.0
+stube_ver=18.3.0
 themes_ver=17.3.0
 skins_ver=15.2.0
 

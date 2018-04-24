@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        18.3.0
-%global smtube_ver 18.1.0
+Version:        18.4.0
+%global smtube_ver 18.3.0
 %global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -213,6 +213,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Apr 24 2018 Sérgio Basto <sergio@serjux.com> - 18.4.0-1
+- Update smplayer to 18.4.0
+
 * Mon Mar 26 2018 Sérgio Basto <sergio@serjux.com> - 18.3.0-2
 - Fix for epel-7 and announce bundle of mongoose
 
