@@ -1,5 +1,5 @@
 Name:           smplayer
-Version:        18.4.0
+Version:        18.5.0
 %global smtube_ver 18.3.0
 %global smplayer_themes_ver 17.3.0
 %global smplayer_skins_ver 15.2.0
@@ -213,6 +213,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu May 31 2018 Sérgio Basto <sergio@serjux.com> - 18.5.0-1
+- Update smplayer to 18.5.0
+
 * Tue Apr 24 2018 Sérgio Basto <sergio@serjux.com> - 18.4.0-1
 - Update smplayer to 18.4.0
 

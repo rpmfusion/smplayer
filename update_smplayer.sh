@@ -1,4 +1,4 @@
-version=18.4.0
+version=18.5.0
 stube_ver=18.3.0
 themes_ver=17.3.0
 skins_ver=15.2.0
@@ -19,7 +19,5 @@ echo Press enter to continue; read dummy;
 git checkout f28 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;
 git checkout f27 && git merge master && git push && rfpkg build --nowait; git checkout master
-echo Press enter to continue; read dummy;
-git checkout f26 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;
 git checkout el7 && git merge master && git push && rfpkg build --nowait; git checkout master
