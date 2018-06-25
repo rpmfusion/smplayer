@@ -18,7 +18,6 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
-Patch4:         webserver.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -49,7 +48,7 @@ Suggests:       mplayer
 %else
 Requires:       mplayer
 %endif
-Provides:       bundled(mongoose) = 6.6
+Provides:       bundled(mongoose) = 6.11
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -105,7 +104,6 @@ pushd smtube-%{smtube_ver}
 # correction for wrong-file-end-of-line-encoding on smtube
 %{__sed} -i 's/\r//' *.txt
 popd
-%patch4 -p1 -b .webserver
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
