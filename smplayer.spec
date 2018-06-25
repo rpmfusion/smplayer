@@ -1,7 +1,7 @@
 Name:           smplayer
-Version:        18.5.0
+Version:        18.6.0
 %global smtube_ver 18.3.0
-%global smplayer_themes_ver 17.3.0
+%global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
@@ -213,6 +213,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Mon Jun 25 2018 Sérgio Basto <sergio@serjux.com> - 18.6.0-1
+- Update smplayer to 18.6.0
+
 * Thu May 31 2018 Sérgio Basto <sergio@serjux.com> - 18.5.0-1
 - Update smplayer to 18.5.0
 

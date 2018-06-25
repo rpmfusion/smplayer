@@ -1,6 +1,6 @@
-version=18.5.0
+version=18.6.0
 stube_ver=18.3.0
-themes_ver=17.3.0
+themes_ver=18.6.0
 skins_ver=15.2.0
 
 git pull
