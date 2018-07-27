@@ -3,7 +3,7 @@ Version:        18.6.0
 %global smtube_ver 18.3.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -211,6 +211,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Fri Jul 27 2018 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 18.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Mon Jun 25 2018 Sérgio Basto <sergio@serjux.com> - 18.6.0-1
 - Update smplayer to 18.6.0
 
