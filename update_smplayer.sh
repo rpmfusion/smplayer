@@ -1,5 +1,5 @@
-version=18.6.0
-stube_ver=18.3.0
+version=18.9.0
+stube_ver=18.9.0
 themes_ver=18.6.0
 skins_ver=15.2.0
 
@@ -15,6 +15,8 @@ rfpkg new-sources ./smplayer-$version.tar.bz2 ./smtube-$stube_ver.tar.bz2 ./smpl
 rfpkg ci -c && git show
 echo Press enter to continue; read dummy;
 rfpkg push && rfpkg build --nowait
+echo Press enter to continue; read dummy;
+git checkout f29 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;
 git checkout f28 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;

@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        18.6.0
-%global smtube_ver 18.3.0
+Version:        18.9.0
+%global smtube_ver 18.9.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -211,6 +211,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Sep 18 2018 Sérgio Basto <sergio@serjux.com> - 18.9.0-1
+- Update smplayer and smtube to 18.9.0
+
 * Sun Aug 19 2018 Leigh Scott <leigh123linux@googlemail.com> - 18.6.0-3
 - Rebuilt for Fedora 29 Mass Rebuild binutils issue
 
