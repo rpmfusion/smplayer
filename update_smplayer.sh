@@ -1,4 +1,4 @@
-version=18.9.0
+version=18.10.0
 stube_ver=18.9.0
 themes_ver=18.6.0
 skins_ver=15.2.0
