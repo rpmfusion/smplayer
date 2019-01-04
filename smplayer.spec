@@ -1,9 +1,9 @@
 Name:           smplayer
 Version:        18.10.0
-%global smtube_ver 18.9.0
+%global smtube_ver 18.11.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -211,6 +211,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Fri Jan 04 2019 Sérgio Basto <sergio@serjux.com> - 18.10.0-2
+- Update smtube to 18.11.0
+
 * Sun Oct 21 2018 Sérgio Basto <sergio@serjux.com> - 18.10.0-1
 - Update smplayer to 18.10.0
 
