@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        18.10.0
+Version:        19.1.0
 %global smtube_ver 18.11.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 Group:          Applications/Multimedia
@@ -17,7 +17,7 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
-Patch3:         smtube-16.3.0-system-qtsingleapplication.patch
+Patch3:         smtube-18.11.0-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -211,6 +211,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Mon Jan 28 2019 Sérgio Basto <sergio@serjux.com> - 19.1.0-1
+- Update smplayer to 19.1.0
+
 * Fri Jan 04 2019 Sérgio Basto <sergio@serjux.com> - 18.10.0-2
 - Update smtube to 18.11.0
 
