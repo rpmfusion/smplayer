@@ -3,7 +3,7 @@ Version:        19.1.0
 %global smtube_ver 18.11.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -210,6 +210,10 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sun Apr 21 2019 Leigh Scott <leigh123linux@googlemail.com> - 19.1.0-3
+- Remove Group tag
+- Remove obsolete scriptlets for Fedora
+
 * Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 19.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
