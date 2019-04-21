@@ -6,7 +6,6 @@ Version:        19.1.0
 Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
-Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            http://smplayer.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
@@ -67,7 +66,6 @@ SMPlayer is developed with the Qt toolkit, so it's multi-platform.
 
 %package -n smtube
 Summary: YouTube browser for SMPlayer
-Group: Applications/Multimedia
 License: GPLv2+
 URL: http://www.smtube.org
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -82,7 +80,6 @@ and play YouTube videos.
 
 %package themes
 Summary:  Themes and Skins for SMPlayer
-Group:    Video/Players
 Requires: smplayer
 
 %description themes
