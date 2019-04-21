@@ -164,6 +164,7 @@ popd
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
+%if (0%{?rhel} && 0%{?rhel} <= 7)
 %post
 /usr/bin/update-desktop-database &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -177,6 +178,7 @@ fi
 
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
 
 %files
 %license Copying*
