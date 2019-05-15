@@ -1,9 +1,9 @@
 Name:           smplayer
-Version:        19.1.0
+Version:        19.5.0
 %global smtube_ver 18.11.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -210,6 +210,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Wed May 15 2019 Sérgio Basto <sergio@serjux.com> - 19.5.0-1
+- Update smplayer to 19.5.0
+
 * Sun Apr 21 2019 Leigh Scott <leigh123linux@googlemail.com> - 19.1.0-3
 - Remove Group tag
 - Remove obsolete scriptlets for Fedora
