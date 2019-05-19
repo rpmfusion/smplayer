@@ -17,6 +17,7 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-18.11.0-system-qtsingleapplication.patch
+Patch4:         smplayer-19.5.0-webserver.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -101,6 +102,7 @@ pushd smtube-%{smtube_ver}
 # correction for wrong-file-end-of-line-encoding on smtube
 %{__sed} -i 's/\r//' *.txt
 popd
+%patch4 -p1 -b .webserver
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
