@@ -1,9 +1,9 @@
 Name:           smplayer
 Version:        19.5.0
-%global smtube_ver 18.11.0
+%global smtube_ver 19.6.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -212,6 +212,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Fri Sep 13 2019 Sérgio Basto <sergio@serjux.com> - 19.5.0-3
+- Update smtube to 19.6.0
+
 * Fri Aug 09 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 19.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 

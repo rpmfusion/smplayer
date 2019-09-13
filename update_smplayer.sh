@@ -1,5 +1,5 @@
 version=19.5.0
-stube_ver=18.11.0
+stube_ver=19.6.0
 themes_ver=18.6.0
 skins_ver=15.2.0
 
@@ -22,9 +22,14 @@ sed -i "s|^%global smplayer_skins_ver .*|%global smplayer_skins_ver $skins_ver|"
 if [[ -z $2 ]]; then
 MSG="Update smplayer to $version"
 else
-MSG=$1
+MSG=$2
 fi
+if [[ -z $3 ]]; then
 rpmdev-bumpspec -n $version -c "$MSG" smplayer.spec
+else
+rpmdev-bumpspec -c "$MSG" smplayer.spec
+fi
+
 spectool -g smplayer.spec
 rfpkg new-sources ./smplayer-$version.tar.bz2 ./smtube-$stube_ver.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
 rfpkg ci -c && git show
