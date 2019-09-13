@@ -40,11 +40,11 @@ echo STAGE 1
 echo Press enter to continue; read dummy;
 rfpkg push && rfpkg build --nowait
 echo Press enter to continue; read dummy;
+git checkout f31 && git merge master && git push && rfpkg build --nowait; git checkout master
+echo Press enter to continue; read dummy;
 git checkout f30 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;
 git checkout f29 && git merge master && git push && rfpkg build --nowait; git checkout master
-echo Press enter to continue; read dummy;
-git checkout f28 && git merge master && git push && rfpkg build --nowait; git checkout master
 echo Press enter to continue; read dummy;
 git checkout el7 && git merge master && git push && rfpkg build --nowait; git checkout master
 fi
