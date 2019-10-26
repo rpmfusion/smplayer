@@ -3,7 +3,7 @@ Version:        19.5.0
 %global smtube_ver 19.6.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -15,6 +15,7 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
+Patch1:         Fix_control_problem_with_mpv-0.30.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch3:         smtube-18.11.0-system-qtsingleapplication.patch
 Patch4:         smplayer-19.5.0-webserver.patch
@@ -96,6 +97,7 @@ rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 #rm -rf src/findsubtitles/libmaia
 
 %patch0 -p1 -b .desktop-files
+%patch1 -p0 -b .new-mpv
 %patch2 -p1 -b .qtsingleapplication
 pushd smtube-%{smtube_ver}
 %patch3 -p1 -b .qtsingleapplication
@@ -212,6 +214,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sat Oct 26 2019 Leigh Scott <leigh123linux@gmail.com> - 19.5.0-4
+- Fix controls with mpv-0.30.0
+
 * Fri Sep 13 2019 Sérgio Basto <sergio@serjux.com> - 19.5.0-3
 - Update smtube to 19.6.0
 
