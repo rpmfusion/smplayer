@@ -1,15 +1,13 @@
 Name:           smplayer
 Version:        19.5.0
-%global smtube_ver 19.6.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
 URL:            http://smplayer.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
-Source2:        http://downloads.sourceforge.net/smtube/smtube-%{smtube_ver}.tar.bz2
 Source3:        http://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
 Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
@@ -17,7 +15,6 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch1:         Fix_control_problem_with_mpv-0.30.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
-Patch3:         smtube-18.11.0-system-qtsingleapplication.patch
 Patch4:         smplayer-19.5.0-webserver.patch
 
 BuildRequires:  desktop-file-utils
@@ -38,20 +35,19 @@ BuildRequires:  pkgconfig(Qt5Xml)
 # for unbundle sources
 BuildRequires:  qtsingleapplication-qt5-devel
 BuildRequires:  pkgconfig(zlib)
-# for smtube only
-BuildRequires:  pkgconfig(Qt5WebKit)
 Requires:       hicolor-icon-theme
 # smplayer without mplayer is quite useless
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     smtube
 Requires:       mplayer-backend
-Suggests:       mplayer
+Suggests:       mpv
 %else
 Requires:       mplayer
 %endif
 Provides:       bundled(mongoose) = 6.11
+Provides:       bundled(libmaia) = 0.9.0
 
-%{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
+%{?kf5_kinit_requires}
 
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
@@ -66,20 +62,6 @@ played file, so when you play it later it will be resumed at the same point
 and with the same settings.
 SMPlayer is developed with the Qt toolkit, so it's multi-platform.
 
-%package -n smtube
-Summary: YouTube browser for SMPlayer
-License: GPLv2+
-URL: http://www.smtube.org
-%if 0%{?fedora} || 0%{?rhel} > 7
-Recommends:     smplayer
-%else
-Requires:       smplayer
-%endif
-
-%description -n smtube
-This is a YouTube browser for SMPlayer. You can browse, search
-and play YouTube videos.
-
 %package themes
 Summary:  Themes and Skins for SMPlayer
 Requires: smplayer
@@ -88,22 +70,16 @@ Requires: smplayer
 A set of themes for SMPlayer and a set of skins for SMPlayer.
 
 %prep
-%setup -q -a2 -a3 -a4
+%setup -q -a3 -a4
 #remove some bundle sources
 rm -rf zlib
 rm -rf src/qtsingleapplication/
-rm -rf smtube-%{smtube_ver}/src/qtsingleapplication/
 #TODO unbundle libmaia
 #rm -rf src/findsubtitles/libmaia
 
 %patch0 -p1 -b .desktop-files
 %patch1 -p0 -b .new-mpv
 %patch2 -p1 -b .qtsingleapplication
-pushd smtube-%{smtube_ver}
-%patch3 -p1 -b .qtsingleapplication
-# correction for wrong-file-end-of-line-encoding on smtube
-%{__sed} -i 's/\r//' *.txt
-popd
 %patch4 -p1 -b .webserver
 
 # correction for wrong-file-end-of-line-encoding
@@ -119,18 +95,12 @@ mv Changelog.utf8 Changelog
 %build
 pushd src
     %{qmake_qt5}
-    %make_build DATA_PATH=\\\"%{_datadir}/%{name}\\\" \
-        TRANSLATION_PATH=\\\"%{_datadir}/%{name}/translations\\\" \
-        DOC_PATH=\\\"%{_docdir}/%{name}\\\" \
-        THEMES_PATH=\\\"%{_datadir}/%{name}/themes\\\" \
-        SHORTCUTS_PATH=\\\"%{_datadir}/%{name}/shortcuts\\\"
+    %make_build DATA_PATH="\\\"%{_datadir}/%{name}\\\"" \
+        TRANSLATION_PATH="\\\"%{_datadir}/%{name}/translations\\\"" \
+        DOC_PATH="\\\"%{_docdir}/%{name}\\\"" \
+        THEMES_PATH="\\\"%{_datadir}/%{name}/themes\\\"" \
+        SHORTCUTS_PATH="\\\"%{_datadir}/%{name}/shortcuts\\\""
     %{_bindir}/lrelease-qt5 %{name}.pro
-popd
-
-pushd smtube-%{smtube_ver}/src
-    %{qmake_qt5}
-    %make_build TRANSLATION_PATH=\\\"%{_datadir}/smtube/translations\\\"
-    %{_bindir}/lrelease-qt5 smtube.pro
 popd
 
 pushd smplayer-themes-%{smplayer_themes_ver}
@@ -138,8 +108,6 @@ pushd smplayer-themes-%{smplayer_themes_ver}
 popd
 
 pushd smplayer-skins-%{smplayer_skins_ver}
-    mv README.txt README-skins.txt
-    mv Changelog Changelog-skins.txt
     %make_build
 popd
 pushd webserver
@@ -153,16 +121,14 @@ popd
 # License docs go to another place
 rm -r %{buildroot}%{_docdir}/%{name}/Copying*
 
-pushd smtube-%{smtube_ver}
-    %make_install PREFIX=%{_prefix} DOC_PATH=%{_docdir}/%{name}/smtube
-popd
-
 pushd smplayer-themes-%{smplayer_themes_ver}
     %make_install PREFIX=%{_prefix}
 popd
 
 pushd smplayer-skins-%{smplayer_skins_ver}
     %make_install PREFIX=%{_prefix}
+    mv README.txt README-skins.txt
+    mv Changelog Changelog-skins.txt
 popd
 
 %check
@@ -196,15 +162,6 @@ fi
 %{_mandir}/man1/%{name}.1.*
 %{_docdir}/%{name}
 
-%files -n smtube
-%doc smtube-%{smtube_ver}/Changelog smtube-%{smtube_ver}/Readme.txt
-%doc smtube-%{smtube_ver}/Release_notes.txt
-%license smtube-%{smtube_ver}/Copying.txt
-%{_bindir}/smtube
-%{_datadir}/applications/smtube.desktop
-%{_datadir}/icons/hicolor/*/apps/smtube.png
-%{_datadir}/smtube
-
 %files themes
 %doc smplayer-themes-%{smplayer_themes_ver}/README.txt
 %doc smplayer-themes-%{smplayer_themes_ver}/Changelog
@@ -214,6 +171,11 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sun Oct 27 2019 Sérgio Basto <sergio@serjux.com> - 19.5.0-5
+- Remove smtube sub-package it is available in separated package
+- Announce bundle of libmaia
+- Suggests mpv instead mplayer
+
 * Sat Oct 26 2019 Leigh Scott <leigh123linux@gmail.com> - 19.5.0-4
 - Fix controls with mpv-0.30.0
 

@@ -1,5 +1,5 @@
 version=19.5.0
-stube_ver=19.6.0
+#stube_ver=19.6.0
 themes_ver=18.6.0
 skins_ver=15.2.0
 
@@ -13,9 +13,9 @@ fi
 if test $stage -le 0
 then
 echo STAGE 0
-git pull
+git checkout master && git pull || exit 2
 
-sed -i "s|^%global smtube_ver .*|%global smtube_ver $stube_ver|" smplayer.spec
+#sed -i "s|^%global smtube_ver .*|%global smtube_ver $stube_ver|" smplayer.spec
 sed -i "s|^%global smplayer_themes_ver .*|%global smplayer_themes_ver $themes_ver|" smplayer.spec
 sed -i "s|^%global smplayer_skins_ver .*|%global smplayer_skins_ver $skins_ver|" smplayer.spec
 
