@@ -1,8 +1,8 @@
 Name:           smplayer
-Version:        19.5.0
+Version:        19.10.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -13,7 +13,6 @@ Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpla
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
-Patch1:         Fix_control_problem_with_mpv-0.30.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 Patch4:         smplayer-19.5.0-webserver.patch
 
@@ -79,7 +78,6 @@ rm -rf src/qtsingleapplication/
 #rm -rf src/findsubtitles/libmaia
 
 %patch0 -p1 -b .desktop-files
-%patch1 -p0 -b .new-mpv
 %patch2 -p1 -b .qtsingleapplication
 %patch4 -p1 -b .webserver
 
@@ -172,6 +170,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Oct 29 2019 Sérgio Basto <sergio@serjux.com> - 19.10.0-1
+- Update smplayer to 19.10.0 (with fix for new mpv)
+
 * Sun Oct 27 2019 Sérgio Basto <sergio@serjux.com> - 19.5.0-5
 - Remove smtube sub-package it is available in separated package
 - Announce bundle of libmaia

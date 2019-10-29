@@ -1,4 +1,4 @@
-version=19.5.0
+version=19.10.0
 #stube_ver=19.6.0
 themes_ver=18.6.0
 skins_ver=15.2.0
