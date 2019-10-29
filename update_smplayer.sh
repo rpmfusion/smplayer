@@ -31,7 +31,7 @@ rpmdev-bumpspec -c "$MSG" smplayer.spec
 fi
 
 spectool -g smplayer.spec
-rfpkg new-sources ./smplayer-$version.tar.bz2 ./smtube-$stube_ver.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
+rfpkg new-sources ./smplayer-$version.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
 rfpkg ci -c && git show
 fi
 if test $stage -le 1
