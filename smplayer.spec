@@ -6,10 +6,10 @@ Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
-URL:            http://smplayer.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
-Source3:        http://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
-Source4:        http://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
+URL:            https://www.smplayer.info/
+Source0:        https://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
+Source3:        https://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
+Source4:        https://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
