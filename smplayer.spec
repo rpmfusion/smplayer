@@ -14,7 +14,6 @@ Source4:        https://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpl
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
-Patch4:         smplayer-19.5.0-webserver.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -79,7 +78,6 @@ rm -rf src/qtsingleapplication/
 
 %patch0 -p1 -b .desktop-files
 %patch2 -p1 -b .qtsingleapplication
-%patch4 -p1 -b .webserver
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -172,6 +170,7 @@ fi
 %changelog
 * Wed Nov 13 2019 Sérgio Basto <sergio@serjux.com> - 19.10.2-1
 - Update to 19.10.2
+- Drop patch4, upstream did a similar fix.
 
 * Tue Oct 29 2019 Sérgio Basto <sergio@serjux.com> - 19.10.0-1
 - Update smplayer to 19.10.0 (with fix for new mpv)
