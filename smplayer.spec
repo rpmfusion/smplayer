@@ -1,5 +1,5 @@
 Name:           smplayer
-Version:        19.10.0
+Version:        19.10.2
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
 Release:        1%{?dist}
@@ -170,6 +170,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Wed Nov 13 2019 Sérgio Basto <sergio@serjux.com> - 19.10.2-1
+- Update to 19.10.2
+
 * Tue Oct 29 2019 Sérgio Basto <sergio@serjux.com> - 19.10.0-1
 - Update smplayer to 19.10.0 (with fix for new mpv)
 
