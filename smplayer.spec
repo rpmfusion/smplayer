@@ -2,7 +2,7 @@ Name:           smplayer
 Version:        19.10.2
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -168,6 +168,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 19.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Wed Nov 13 2019 Sérgio Basto <sergio@serjux.com> - 19.10.2-1
 - Update to 19.10.2
 - Drop patch4, upstream did a similar fix.
