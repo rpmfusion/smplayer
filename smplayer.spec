@@ -2,12 +2,13 @@ Name:           smplayer
 Version:        19.10.2
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
 URL:            https://www.smplayer.info/
 Source0:        https://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
+Source2:        %{name}.appdata.xml
 Source3:        https://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
 Source4:        https://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
@@ -127,6 +128,7 @@ pushd smplayer-skins-%{smplayer_skins_ver}
     mv README.txt README-skins.txt
     mv Changelog Changelog-skins.txt
 popd
+install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
@@ -158,6 +160,7 @@ fi
 %exclude %{_datadir}/smplayer/themes/
 %{_mandir}/man1/%{name}.1.*
 %{_docdir}/%{name}
+%{_metainfodir}/%{name}.appdata.xml
 
 %files themes
 %doc smplayer-themes-%{smplayer_themes_ver}/README.txt
@@ -168,6 +171,10 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sun Mar 01 2020 Sérgio Basto <sergio@serjux.com> - 19.10.2-3
+- Add appdata file, copied from
+  https://github.com/sanjayankur31/rpmfusion-appdata
+
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 19.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
