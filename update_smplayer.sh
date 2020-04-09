@@ -2,6 +2,7 @@ version=20.4.0
 #stube_ver=19.6.0
 themes_ver=18.6.0
 skins_ver=15.2.0
+REPOS="f32 f31 f30 el7"
 
 if [ -z "$1" ]
 then
@@ -39,12 +40,15 @@ fi
 if test $stage -le 1
 then
 echo STAGE 1
-echo Press enter to continue; read dummy;
+echo Press enter to push and build in rawhide; read dummy;
 rfpkg push && rfpkg build --nowait
 echo Press enter to continue; read dummy;
-git checkout f31 && git merge master && git push && rfpkg build --nowait; git checkout master
-echo Press enter to continue; read dummy;
-git checkout f30 && git merge master && git push && rfpkg build --nowait; git checkout master
-echo Press enter to continue; read dummy;
-git checkout el7 && git merge master && git push && rfpkg build --nowait; git checkout master
+fi
+
+if test $stage -le 2
+then
+for repo in $REPOS ; do
+echo Press enter to build on branch $repo; read dummy;
+git checkout $repo && git merge master && git push && rfpkg build --nowait; git checkout master
+done
 fi
