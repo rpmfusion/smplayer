@@ -1,8 +1,8 @@
 Name:           smplayer
-Version:        19.10.2
+Version:        20.4.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -171,6 +171,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Apr 09 2020 Sérgio Basto <sergio@serjux.com> - 20.4.0-1
+- Update smplayer to 20.4.0
+
 * Sun Mar 01 2020 Sérgio Basto <sergio@serjux.com> - 19.10.2-3
 - Add appdata file, copied from
   https://github.com/sanjayankur31/rpmfusion-appdata

@@ -1,4 +1,4 @@
-version=19.10.2
+version=20.4.0
 #stube_ver=19.6.0
 themes_ver=18.6.0
 skins_ver=15.2.0
@@ -31,6 +31,8 @@ rpmdev-bumpspec -c "$MSG" smplayer.spec
 fi
 
 spectool -g smplayer.spec
+rfpkg scratch-build --srpm --nowait
+echo Press enter to upload sources and commit; read dummy;
 rfpkg new-sources ./smplayer-$version.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
 rfpkg ci -c && git show
 fi
