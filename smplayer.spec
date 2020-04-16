@@ -1,5 +1,5 @@
 Name:           smplayer
-Version:        20.4.0
+Version:        20.4.2
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
 Release:        1%{?dist}
@@ -171,6 +171,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Apr 16 2020 Leigh Scott <leigh123linux@gmail.com> - 20.4.2-1
+- Update smplayer to 20.4.2
+
 * Thu Apr 09 2020 Sérgio Basto <sergio@serjux.com> - 20.4.0-1
 - Update smplayer to 20.4.0
 
