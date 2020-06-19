@@ -1,4 +1,4 @@
-version=20.4.0
+version=20.6.0
 #stube_ver=19.6.0
 themes_ver=18.6.0
 skins_ver=15.2.0
