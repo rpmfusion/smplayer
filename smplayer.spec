@@ -32,6 +32,7 @@ BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(xext)
+BuildRequires:  qt5-qtbase-private-devel
 # for unbundle sources
 BuildRequires:  qtsingleapplication-qt5-devel
 BuildRequires:  pkgconfig(zlib)
@@ -173,6 +174,7 @@ fi
 %changelog
 * Fri Jun 19 2020 Sérgio Basto <sergio@serjux.com> - 20.6.0-1
 - Update smplayer to 20.6.0
+- Add BR qt5-qtbase-private-devel
 
 * Thu Apr 16 2020 Leigh Scott <leigh123linux@gmail.com> - 20.4.2-1
 - Update smplayer to 20.4.2

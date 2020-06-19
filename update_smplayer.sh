@@ -42,7 +42,6 @@ then
 echo STAGE 1
 echo Press enter to push and build in rawhide; read dummy;
 rfpkg push && rfpkg build --nowait
-echo Press enter to continue; read dummy;
 fi
 
 if test $stage -le 2
