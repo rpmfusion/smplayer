@@ -2,7 +2,7 @@ version=20.6.0
 #stube_ver=19.6.0
 themes_ver=18.6.0
 skins_ver=15.2.0
-REPOS="f32 f31 f30 el7"
+REPOS="f32 f31 el8 el7"
 
 if [ -z "$1" ]
 then
