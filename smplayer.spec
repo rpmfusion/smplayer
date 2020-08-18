@@ -2,7 +2,7 @@ Name:           smplayer
 Version:        20.6.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -172,6 +172,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 20.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Fri Jun 19 2020 Sérgio Basto <sergio@serjux.com> - 20.6.0-1
 - Update smplayer to 20.6.0
 - Add BR qt5-qtbase-private-devel
