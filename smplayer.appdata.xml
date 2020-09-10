@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2015 Ankur Sinha <ankursinha AT fedoraproject DOT org> -->
-
-<!-- HOUSEKEEPING, REMOVE THIS COMMENT WHEN THIS GOES UPSTREAM
-BugReportURL: rhbz-#
-SentUpstream: yyyy-mm-dd
--->
-
-<application>
-  <id type="desktop">rpmfusion-smplayer.desktop</id>
-  <metadata_license>CC0-1.0</metadata_license>
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>smplayer</id>
+  
+  <name>smplayer</name>
   <summary>A graphical frontend for mpv and mplayer</summary>
+  
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0-or-later</project_license>
+  
   <description>
     <p>
         SMPlayer is a free media player for Windows and Linux with built-in
@@ -34,15 +33,30 @@ SentUpstream: yyyy-mm-dd
         possibility to play Youtube videos or download subtitles. 
     </p>
   </description>
-  <url type="homepage">http://smplayer.sourceforge.net/linux/</url>
+  
+  <launchable type="desktop-id">smplayer.desktop</launchable>
+  <categories>
+        <category>AudioVideo</category>
+        <category>Video</category>
+  </categories>
+  <url type="homepage">https://www.smplayer.info/</url>
+  <update_contact>https://www.smplayer.info/en/contact</update_contact>
   <screenshots>
-      <screenshot type="default">http://smplayer.sourceforge.net/images/screenshots/mainwindow.png</screenshot>
-      <screenshot type="default">http://smplayer.sourceforge.net/images/screenshots/thumbnail_generator_en.png</screenshot>
-      <screenshot type="default">http://smplayer.sourceforge.net/images/screenshots/find_subtitles.png</screenshot>
-      <screenshot type="default">http://smplayer.sourceforge.net/images/screenshots/smplayer_skin_modern3.png</screenshot>
+    <screenshot type="default">
+      <image>http://smplayer.sourceforge.net/images/screenshots/mainwindow.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://smplayer.sourceforge.net/images/screenshots/thumbnail_generator_en.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://smplayer.sourceforge.net/images/screenshots/find_subtitles.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://smplayer.sourceforge.net/images/screenshots/smplayer_skin_modern3.png</image>
+    </screenshot>
   </screenshots>
-  <!-- FIXME: change this to an upstream email address for spec updates
-  <updatecontact>someone_who_cares@upstream_project.org</updatecontact>
-   -->
-</application>
-
+  <content_rating type="oars-1.1"/>
+    <releases>
+       <release version="20.6.0" date="2020-06-17"/>
+  </releases>
+</component>

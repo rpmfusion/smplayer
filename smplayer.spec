@@ -2,7 +2,7 @@ Name:           smplayer
 Version:        20.6.0
 %global smplayer_themes_ver 18.6.0
 %global smplayer_skins_ver 15.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -18,6 +18,7 @@ Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
+BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5Designer)
 BuildRequires:  pkgconfig(Qt5Concurrent)
@@ -133,6 +134,7 @@ install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %if (0%{?rhel} && 0%{?rhel} <= 7)
 %post
@@ -172,6 +174,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Sep 10 2020 Leigh Scott <leigh123linux@gmail.com> - 20.6.0-3
+- Fix and vailidate appdata
+
 * Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 20.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
