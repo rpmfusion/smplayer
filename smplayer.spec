@@ -1,8 +1,8 @@
 Name:           smplayer
 Version:        20.6.0
-%global smplayer_themes_ver 18.6.0
-%global smplayer_skins_ver 15.2.0
-Release:        3%{?dist}
+%global smplayer_themes_ver 20.11.0
+%global smplayer_skins_ver 20.11.0
+Release:        4%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -174,6 +174,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sat Dec 05 2020 Sérgio Basto <sergio@serjux.com> - 20.6.0-4
+- Update skins and themes
+
 * Thu Sep 10 2020 Leigh Scott <leigh123linux@gmail.com> - 20.6.0-3
 - Fix and vailidate appdata
 
