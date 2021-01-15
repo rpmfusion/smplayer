@@ -1,8 +1,8 @@
 Name:           smplayer
-Version:        20.6.0
+Version:        21.1.0
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -15,6 +15,7 @@ Source4:        https://downloads.sourceforge.net/smplayer/smplayer-skins-%{smpl
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-0.8.3-desktop-files.patch
 Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
+Patch3:         mongoose_gcc11.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -81,6 +82,7 @@ rm -rf src/qtsingleapplication/
 
 %patch0 -p1 -b .desktop-files
 %patch2 -p1 -b .qtsingleapplication
+%patch3 -p1 -b .mongoose_gcc11
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
@@ -174,6 +176,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Jan 07 2021 Sérgio Basto <sergio@serjux.com> - 21.1.0-1
+- Update smplayer to 21.1.0
+
 * Sat Dec 05 2020 Sérgio Basto <sergio@serjux.com> - 20.6.0-4
 - Update skins and themes
 
