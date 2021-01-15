@@ -33,13 +33,13 @@ fi
 
 spectool -g smplayer.spec
 rfpkg scratch-build --srpm --nowait
-echo Press enter to upload sources and commit; read dummy;
-rfpkg new-sources ./smplayer-$version.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
-rfpkg ci -c && git show
 fi
 if test $stage -le 1
 then
 echo STAGE 1
+echo Press enter to upload sources and commit; read dummy;
+rfpkg new-sources ./smplayer-$version.tar.bz2 ./smplayer-themes-$themes_ver.tar.bz2 ./smplayer-skins-$skins_ver.tar.bz2
+rfpkg ci -c && git show
 echo Press enter to push and build in rawhide; read dummy;
 rfpkg push && rfpkg build --nowait
 fi
