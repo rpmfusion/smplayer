@@ -2,7 +2,7 @@ Name:           smplayer
 Version:        21.1.0
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -136,7 +136,7 @@ install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-appstream-util validate --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %if (0%{?rhel} && 0%{?rhel} <= 7)
 %post
@@ -176,6 +176,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sat Jan 16 2021 Sérgio Basto <sergio@serjux.com> - 21.1.0-2
+- Update appdata.xml and relax the validation
+
 * Thu Jan 07 2021 Sérgio Basto <sergio@serjux.com> - 21.1.0-1
 - Update smplayer to 21.1.0
 
