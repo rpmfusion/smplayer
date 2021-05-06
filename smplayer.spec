@@ -22,19 +22,17 @@ BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5Designer)
+BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5PrintSupport)
-BuildRequires:  pkgconfig(Qt5Script)
 BuildRequires:  pkgconfig(Qt5Sql)
 BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(xext)
-BuildRequires:  qt5-qtbase-private-devel
 # for unbundle sources
 BuildRequires:  qtsingleapplication-qt5-devel
 BuildRequires:  pkgconfig(zlib)
@@ -86,9 +84,6 @@ rm -rf src/qtsingleapplication/
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
-# fix files which are not UTF-8
-iconv -f Latin1 -t UTF-8 -o Changelog.utf8 Changelog
-mv Changelog.utf8 Changelog
 
 # change rcc binary
 %{__sed} -e 's/rcc -binary/rcc-qt5 -binary/' -i smplayer-themes-%{smplayer_themes_ver}/themes/Makefile
@@ -157,14 +152,13 @@ fi
 %files
 %license Copying*
 %{_bindir}/smplayer
-%{_bindir}/simple_web_server
-%{_datadir}/applications/smplayer*.desktop
-%{_datadir}/icons/hicolor/*/apps/smplayer.png
-%{_datadir}/icons/hicolor/*/apps/smplayer.svg
-%{_datadir}/smplayer
+%{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/smplayer/
 %exclude %{_datadir}/smplayer/themes/
 %{_mandir}/man1/%{name}.1.*
-%{_docdir}/%{name}
+%{_docdir}/%{name}/
+%{_bindir}/simple_web_server
 %{_metainfodir}/%{name}.appdata.xml
 
 %files themes
