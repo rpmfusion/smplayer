@@ -1,4 +1,4 @@
-version=21.1.0
+version=21.8.0
 #stube_ver=19.6.0
 themes_ver=20.11.0
 skins_ver=20.11.0
