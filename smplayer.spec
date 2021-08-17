@@ -2,13 +2,12 @@ Name:           smplayer
 Version:        21.8.0
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
 URL:            https://www.smplayer.info/
 Source0:        https://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
-Source2:        %{name}.appdata.xml
 Source3:        https://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
 Source4:        https://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
@@ -126,11 +125,18 @@ pushd smplayer-skins-%{smplayer_skins_ver}
     mv README.txt README-skins.txt
     mv Changelog Changelog-skins.txt
 popd
-install -m 0644 -D %{SOURCE2} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+
+%if (0%{?rhel} && 0%{?rhel} <= 7)
+mkdir -p %{buildroot}/usr/share/appdata/
+mv %{buildroot}/usr/share/metainfo/%{name}.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+#https://bugzilla.redhat.com/show_bug.cgi?id=1830923
+%if (0%{?rhel} == 0)
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+%endif
 
 %if (0%{?rhel} && 0%{?rhel} <= 7)
 %post
@@ -169,6 +175,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Aug 17 2021 Sérgio Basto <sergio@serjux.com> - 21.8.0-2
+- smplayer.appdata.xml also upstreamed, but not validate well on epel 7 and 8
+
 * Mon Aug 16 2021 Sérgio Basto <sergio@serjux.com> - 21.8.0-1
 - Update smplayer to 21.8.0
 - Patch3 was upstremed
