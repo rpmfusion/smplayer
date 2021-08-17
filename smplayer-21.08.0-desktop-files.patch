@@ -1,8 +1,8 @@
---- ./smplayer.desktop.orig	2017-12-25 23:26:46.000000000 +0000
-+++ ./smplayer.desktop	2018-01-10 00:37:31.198919686 +0000
+--- ./smplayer.desktop.orig	2021-08-16 12:58:35.000000000 +0100
++++ ./smplayer.desktop	2021-08-17 11:17:43.468385823 +0100
 @@ -1,7 +1,7 @@
  [Desktop Entry]
- Categories=Qt;KDE;AudioVideo;Player;Video;
+ Categories=Qt;AudioVideo;Player;Video;
  Comment=A great MPlayer front-end
 -Exec=smplayer %U
 +Exec=smplayer %f
