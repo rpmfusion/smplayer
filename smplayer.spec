@@ -1,8 +1,8 @@
 Name:           smplayer
-Version:        21.8.0
+Version:        21.10.0
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -175,6 +175,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Mon Nov 01 2021 Sérgio Basto <sergio@serjux.com> - 21.10.0-1
+- Update smplayer to 21.10.0
+
 * Tue Aug 17 2021 Sérgio Basto <sergio@serjux.com> - 21.8.0-2
 - smplayer.appdata.xml also upstreamed, but not validate well on epel 7 and 8
 
