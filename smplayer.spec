@@ -2,7 +2,7 @@ Name:           smplayer
 Version:        21.10.0
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -43,6 +43,11 @@ Requires:       mplayer-backend
 Suggests:       mpv
 %else
 Requires:       mplayer
+%endif
+%if 0%{?fedora}
+# we only have yt-dlp on fedora
+# it is used by the playlist
+Requires:       yt-dlp
 %endif
 Provides:       bundled(mongoose) = 6.11
 Provides:       bundled(libmaia) = 0.9.0
@@ -89,6 +94,9 @@ rm -rf src/qtsingleapplication/
 
 %build
 pushd src
+%if 0%{?fedora}
+    sed -i 's/DEFINES += YT_CODEDOWNLOADER/DEFINES -= YT_CODEDOWNLOADER/' smplayer.pro
+%endif
     %{qmake_qt5}
     %make_build DATA_PATH="\\\"%{_datadir}/%{name}\\\"" \
         TRANSLATION_PATH="\\\"%{_datadir}/%{name}/translations\\\"" \
@@ -175,6 +183,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Dec 30 2021 Sérgio Basto <sergio@serjux.com> - 21.10.0-2
+- After require yt-dlp, we disable "donwload and install yt-dl" feature
+
 * Mon Nov 01 2021 Sérgio Basto <sergio@serjux.com> - 21.10.0-1
 - Update smplayer to 21.10.0
 
