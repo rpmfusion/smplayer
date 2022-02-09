@@ -2,7 +2,7 @@ Name:           smplayer
 Version:        21.10.0
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -183,6 +183,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 21.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
 * Thu Dec 30 2021 Sérgio Basto <sergio@serjux.com> - 21.10.0-2
 - After require yt-dlp, we disable "donwload and install yt-dl" feature
 
