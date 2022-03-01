@@ -1,8 +1,8 @@
 Name:           smplayer
-Version:        21.10.0
+Version:        22.2.0
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -183,6 +183,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Tue Mar 01 2022 Sérgio Basto <sergio@serjux.com> - 22.2.0-1
+- Update smplayer to 22.2.0
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 21.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
