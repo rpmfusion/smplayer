@@ -1,7 +1,14 @@
-Name:           smplayer
-Version:        22.2.0
+%if 0%{?rhel} >= 9
+%bcond_with system_qtsingleapplication
+%else
+%bcond_without system_qtsingleapplication
+%endif
+
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
+
+Name:           smplayer
+Version:        22.2.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
@@ -33,7 +40,9 @@ BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(xext)
 # for unbundle sources
+%if %{with system_qtsingleapplication}
 BuildRequires:  qtsingleapplication-qt5-devel
+%endif
 BuildRequires:  pkgconfig(zlib)
 Requires:       hicolor-icon-theme
 # smplayer without mplayer is quite useless
@@ -78,12 +87,16 @@ A set of themes for SMPlayer and a set of skins for SMPlayer.
 %setup -q -a3 -a4
 #remove some bundle sources
 rm -rf zlib
+%if %{with system_qtsingleapplication}
 rm -rf src/qtsingleapplication/
+%endif
 #TODO unbundle libmaia
 #rm -rf src/findsubtitles/libmaia
 
 %patch0 -p1 -b .desktop-files
+%if %{with system_qtsingleapplication}
 %patch2 -p1 -b .qtsingleapplication
+%endif
 
 # correction for wrong-file-end-of-line-encoding
 %{__sed} -i 's/\r//' *.txt
