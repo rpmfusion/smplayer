@@ -1,8 +1,7 @@
-version=21.10.0
-#stube_ver=19.6.0
+version=22.7.0
 themes_ver=20.11.0
 skins_ver=20.11.0
-REPOS="f35 f34 f33 el8 el7"
+REPOS="f36 f35 el9 el8 el7"
 
 if [ -z "$1" ]
 then
@@ -16,7 +15,6 @@ then
 echo STAGE 0
 git checkout master && git pull || exit 2
 
-#sed -i "s|^%global smtube_ver .*|%global smtube_ver $stube_ver|" smplayer.spec
 sed -i "s|^%global smplayer_themes_ver .*|%global smplayer_themes_ver $themes_ver|" smplayer.spec
 sed -i "s|^%global smplayer_skins_ver .*|%global smplayer_skins_ver $skins_ver|" smplayer.spec
 
@@ -47,7 +45,9 @@ fi
 if test $stage -le 2
 then
 for repo in $REPOS ; do
-echo Press enter to build on branch $repo; read dummy;
+echo Press enter to build on branch $repo or n to skip; read dummy;
+if [[ "$dummy" != "n" ]]; then
 git checkout $repo && git merge master && git push && rfpkg build --nowait; git checkout master
+fi
 done
 fi

@@ -8,7 +8,7 @@
 %global smplayer_skins_ver 20.11.0
 
 Name:           smplayer
-Version:        22.2.0
+Version:        22.7.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
@@ -196,6 +196,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Jul 14 2022 Sérgio Basto <sergio@serjux.com> - 22.7.0-1
+- Update smplayer to 22.7.0
+
 * Tue Mar 01 2022 Sérgio Basto <sergio@serjux.com> - 22.2.0-1
 - Update smplayer to 22.2.0
 
