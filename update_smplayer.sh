@@ -1,7 +1,7 @@
 version=22.7.0
 themes_ver=20.11.0
 skins_ver=20.11.0
-REPOS="f36 f35 el9 el8 el7"
+REPOS="f38 f37 el9 el8"
 
 if [ -z "$1" ]
 then

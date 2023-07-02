@@ -9,7 +9,7 @@
 
 Name:           smplayer
 Version:        22.7.0
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -196,6 +196,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sun Jul 02 2023 Leigh Scott <leigh123linux@gmail.com> - 22.7.0-1
+- Update smplayer to 22.7.0
+
 * Sun Aug 07 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 22.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
   5.1
