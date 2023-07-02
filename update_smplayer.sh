@@ -1,4 +1,4 @@
-version=22.7.0
+version=23.6.0
 themes_ver=20.11.0
 skins_ver=20.11.0
 REPOS="f38 f37 el9 el8"

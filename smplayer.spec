@@ -8,19 +8,19 @@
 %global smplayer_skins_ver 20.11.0
 
 Name:           smplayer
-Version:        22.7.0
+Version:        23.6.0
 Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
 URL:            https://www.smplayer.info/
-Source0:        https://downloads.sourceforge.net/smplayer/smplayer-%{version}.tar.bz2
+Source0:        https://github.com/smplayer-dev/smplayer/releases/download/v%{version}/smplayer-%{version}.tar.bz2
 Source3:        https://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
 Source4:        https://downloads.sourceforge.net/smplayer/smplayer-skins-%{smplayer_skins_ver}.tar.bz2
 # Fix regression in Thunar (TODO: re-check in upcoming versions!)
 # https://bugzilla.rpmfusion.org/show_bug.cgi?id=1217
 Patch0:         smplayer-21.08.0-desktop-files.patch
-Patch2:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
+Patch1:         smplayer-14.9.0.6966-system-qtsingleapplication.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -93,9 +93,9 @@ rm -rf src/qtsingleapplication/
 #TODO unbundle libmaia
 #rm -rf src/findsubtitles/libmaia
 
-%patch0 -p1 -b .desktop-files
+%patch -P0 -p1 -b .desktop-files
 %if %{with system_qtsingleapplication}
-%patch2 -p1 -b .qtsingleapplication
+%patch -P1 -p1 -b .qtsingleapplication
 %endif
 
 # correction for wrong-file-end-of-line-encoding
@@ -196,8 +196,8 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
-* Sun Jul 02 2023 Leigh Scott <leigh123linux@gmail.com> - 22.7.0-1
-- Update smplayer to 22.7.0
+* Sun Jul 02 2023 Leigh Scott <leigh123linux@gmail.com> - 23.6.0-1
+- Update smplayer to 23.6.0
 
 * Sun Aug 07 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 22.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild and ffmpeg
