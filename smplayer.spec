@@ -8,8 +8,8 @@
 %global smplayer_skins_ver 20.11.0
 
 Name:           smplayer
-Version:        23.6.0
-Release:        2%{?dist}
+Version:        23.12.0
+Release:        1%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPLv2+
@@ -28,6 +28,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(Qt5Designer)
 BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  qt5-qtdeclarative-devel
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5DBus)
@@ -196,6 +197,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Thu Jan 04 2024 Sérgio Basto <sergio@serjux.com> - 23.12.0-1
+- Update smplayer to 23.12.0
+
 * Wed Aug 02 2023 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 23.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
 
