@@ -1,18 +1,14 @@
-%if 0%{?rhel} >= 9
-%bcond_with system_qtsingleapplication
-%else
 %bcond_without system_qtsingleapplication
-%endif
 
 %global smplayer_themes_ver 20.11.0
 %global smplayer_skins_ver 20.11.0
 
 Name:           smplayer
 Version:        23.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.smplayer.info/
 Source0:        https://github.com/smplayer-dev/smplayer/releases/download/v%{version}/smplayer-%{version}.tar.bz2
 Source3:        https://downloads.sourceforge.net/smplayer/smplayer-themes-%{smplayer_themes_ver}.tar.bz2
@@ -54,15 +50,13 @@ Suggests:       mpv
 %else
 Requires:       mplayer
 %endif
-%if 0%{?fedora}
-# we only have yt-dlp on fedora
+%if 0%{?fedora} || 0%{?rhel} > 8
+# we only have yt-dlp on fedora and epel 9
 # it is used by the playlist
 Requires:       yt-dlp
 %endif
 Provides:       bundled(mongoose) = 6.11
 Provides:       bundled(libmaia) = 0.9.0
-
-%{?kf5_kinit_requires}
 
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
@@ -79,7 +73,8 @@ SMPlayer is developed with the Qt toolkit, so it's multi-platform.
 
 %package themes
 Summary:  Themes and Skins for SMPlayer
-Requires: smplayer
+Requires: %{name} = %{version}-%{release}
+BuildArch:  noarch
 
 %description themes
 A set of themes for SMPlayer and a set of skins for SMPlayer.
@@ -108,7 +103,7 @@ rm -rf src/qtsingleapplication/
 
 %build
 pushd src
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 8
     sed -i 's/DEFINES += YT_CODEDOWNLOADER/DEFINES -= YT_CODEDOWNLOADER/' smplayer.pro
 %endif
     %{qmake_qt5}
@@ -156,7 +151,7 @@ mv %{buildroot}/usr/share/metainfo/%{name}.appdata.xml %{buildroot}%{_metainfodi
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 #https://bugzilla.redhat.com/show_bug.cgi?id=1830923
-%if (0%{?rhel} == 0)
+%if 0%{?fedora} || 0%{?rhel} > 8
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 %endif
 
@@ -197,6 +192,11 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Fri Jan 05 2024 Sérgio Basto <sergio@serjux.com> - 23.12.0-2
+- Migrate to SPDX license
+- Change the themes subpackage to noarch
+- Fixes for EPEL 9
+
 * Thu Jan 04 2024 Sérgio Basto <sergio@serjux.com> - 23.12.0-1
 - Update smplayer to 23.12.0
 
