@@ -5,7 +5,7 @@
 
 Name:           smplayer
 Version:        23.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A graphical frontend for mplayer and mpv
 
 License:        GPL-2.0-or-later
@@ -192,6 +192,9 @@ fi
 %{_datadir}/smplayer/themes/
 
 %changelog
+* Sun Feb 04 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 23.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
 * Fri Jan 05 2024 Sérgio Basto <sergio@serjux.com> - 23.12.0-2
 - Migrate to SPDX license
 - Change the themes subpackage to noarch
